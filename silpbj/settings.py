@@ -26,8 +26,8 @@ SECRET_KEY = 'f46o7s@(5o17gr%51)v8e3=#c^los*4l==#x7=$j4cww3ou!e^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['localhost','simpel.lpse.kemensos.go.id', 'simpel.lpse.kemsos.go.id', '192.168.114.86', 'simpel.lpse.kemsos.net', 'simpel.lpse.kemensos.net']
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','simpel.lpse.kemensos.go.id', 'simpel.lpse.kemsos.go.id', '192.168.114.86', 'simpel.lpse.kemsos.net', 'simpel.lpse.kemensos.net']
+# ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
