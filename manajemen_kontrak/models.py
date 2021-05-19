@@ -12,7 +12,7 @@ class UserAdmin(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     nama = models.CharField(max_length=200)
     no_hp = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
     profil_pic = models.ImageField(
         default="profile.png", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -51,7 +51,7 @@ class Barang(models.Model):
 class Penyedia(models.Model):
     nama_perusahaan = models.CharField(max_length=300)
     alamat_perusahaan = models.CharField(max_length=500)
-    email = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
     npwp_perusahaan = models.CharField(max_length=20, null=True, blank=True)
     nomor_rekening = models.CharField(max_length=100, null=True, blank=True)
     bank = models.CharField(max_length=200, null=True, blank=True)
@@ -174,7 +174,7 @@ class LampiranKontrak(models.Model):
     barang = models.ForeignKey(
         Barang, on_delete=models.CASCADE, null=True, blank=True)
     kuantitas = models.IntegerField()
-    harga_satuan = models.DecimalField(max_digits=15, decimal_places=2)
+    harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
     modified_date = models.DateTimeField(
