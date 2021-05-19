@@ -1,3 +1,4 @@
+from django.db.models.deletion import RestrictedError
 from django.shortcuts import render, HttpResponse, redirect, Http404
 
 from django.contrib.auth import authenticate, login, logout
@@ -126,11 +127,13 @@ def ubah_barang(request, pk):
 
 @login_required(login_url='login_page')
 def hapus_barang(request, pk):
-    barang = Barang.objects.get(id=pk)
-    barang.delete()
-    messages.info(request, 'Data berhasil dihapus')
-    return redirect('EntryBarang')
-
+    try:
+        barang = Barang.objects.get(id=pk)
+        barang.delete()
+        messages.info(request, 'Data berhasil dihapus')
+        return redirect('EntryBarang')
+    except RestrictedError:
+        return HttpResponse('Tidak dapat menghapus data..!')
 # Fitur penyedia
 
 
@@ -181,11 +184,13 @@ def ubah_penyedia(request, pk):
 
 @login_required(login_url='login_page')
 def hapus_penyedia(request, pk):
-    penyedia = Penyedia.objects.get(id=pk)
-    penyedia.delete()
-    messages.info(request, 'Data berhasil dihapus')
-    return redirect('EntryPenyedia')
-
+    try:
+        penyedia = Penyedia.objects.get(id=pk)
+        penyedia.delete()
+        messages.info(request, 'Data berhasil dihapus')
+        return redirect('EntryPenyedia')
+    except RestrictedError:
+        return HttpResponse('Tidak dapat menghapus data..!')
 # Fitur penyedia
 
 

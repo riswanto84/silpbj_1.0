@@ -133,7 +133,7 @@
                             <td class="text-right">{{forloop.counter}}</td>
                             <td>
                               <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a>
-                              <p>{{i.barang.merk}} {{i.barang.tipe}}</p>
+                              <p>{{i.barang.merk}} {{i.barang.tipe}}</p> 
                               <p><a href="{% url 'foto_item_pekerjaan' i.id %}">foto pekerjaan: <i class="fa fa-file-image" aria-hidden="true"></i></a></p>
                             </td>
                             <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>

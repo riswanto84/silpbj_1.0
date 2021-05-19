@@ -9,7 +9,7 @@ from decimal import Decimal
 
 
 class UserAdmin(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.RESTRICT)
     nama = models.CharField(max_length=200)
     no_hp = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
@@ -137,7 +137,7 @@ class Kontrak(models.Model):
         max_length=200, choices=CARA_PEMBAYARAN, default='Sekaligus')
     ketentuan_sanksi = models.CharField(max_length=500, blank=True, null=True,
                                         default='Denda 1 ‰ untuk setiap hari keterlambatan dari biaya / harga keseluruhan (sebelum PPn)')
-    penyedia = models.ForeignKey(Penyedia, on_delete=models.CASCADE)
+    penyedia = models.ForeignKey(Penyedia, on_delete=models.RESTRICT)
     dokumen_pengadaan = models.FileField(
         max_length=255, upload_to='files/', blank=True, null=True)
     keterangan = models.TextField(blank=True, null=True)
@@ -166,13 +166,14 @@ class Kontrak(models.Model):
     def get_jumlahTotal(self):
         return self.total_harga() + self.get_ppn()
 
-# lampiran kontrak
 
+class TandaTerimaDistribusi(models.Model):
+    tanda_terima = models.FileField(blank=True, null=True)
 
 class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
-        Barang, on_delete=models.CASCADE, null=True, blank=True)
+        Barang, on_delete=models.RESTRICT)
     kuantitas = models.IntegerField()
     harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
@@ -181,6 +182,7 @@ class LampiranKontrak(models.Model):
         auto_now=True, editable=False, blank=True, null=True)
     created_by = models.IntegerField(blank=True, null=True)
     modified_by = models.IntegerField(blank=True, null=True)
+    file_tanda_terima = models.ForeignKey(TandaTerimaDistribusi, blank=True, null=True, on_delete=models.SET_NULL)
 
     # class Meta:
     #   unique_together = [['barang', ]]
@@ -194,34 +196,9 @@ class LampiranKontrak(models.Model):
 
 class FotoItemPekerjaan(models.Model):
     item_pekerjaan = models.ForeignKey(
-        LampiranKontrak, on_delete=models.CASCADE)
+        LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
     file_foto = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return '%s, %s' % (self.item_pekerjaan.nomor_kontrak, self.item_pekerjaan.barang.nama_barang)
 
-
-class TandaTerimaDistribusi(models.Model):
-    unique_id = get_random_string(length=8)
-    nomor = str(random.randint(1000, 9999)) + "/" + str(unique_id)
-
-    nomor_tanda_terima = models.CharField(max_length=100, default=nomor)
-    tanggal_terima = models.DateField(default=datetime.now)
-    peruntukan = models.CharField(max_length=250, null=True, blank=True)
-    yang_menyerahkan = models.CharField(max_length=200, null=True, blank=True)
-    yang_menerima = models.CharField(max_length=150, blank=True, null=True)
-    kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '%s %s %s, %s' % (self.nomor_tanda_terima, 'no. kontrak :', self.kontrak.nomor_kontrak, self.kontrak.judul_kontrak)
-
-
-class LampiranTandaTerima(models.Model):
-    nomor_tanda_terima = models.ForeignKey(
-        TandaTerimaDistribusi, on_delete=models.CASCADE)
-    barang = models.ForeignKey(Barang, on_delete=models.CASCADE)
-    kuantitas = models.IntegerField()
-    kondisi = models.CharField(max_length=200, blank=True, null=True)
-
-    def __str__(self):
-        return '%s %s, %s %s, %s %s, %s %s %s' % (self.barang.merk, self.barang.tipe, self.kuantitas, self.barang.satuan, "(No. Tanda Terima :", self.nomor_tanda_terima.nomor_tanda_terima, "No. Kontrak :", self.nomor_tanda_terima.kontrak.nomor_kontrak, ")")
