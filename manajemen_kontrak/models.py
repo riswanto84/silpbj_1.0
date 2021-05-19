@@ -41,8 +41,8 @@ class Barang(models.Model):
         auto_now_add=True, editable=False, blank=True, null=True)
     modified_date = models.DateTimeField(
         auto_now=True, editable=False, blank=True, null=True)
-    created_by = models.IntegerField(max_length=5, blank=True, null=True)
-    modified_by = models.IntegerField(max_length=5, blank=True, null=True)
+    created_by = models.IntegerField(blank=True, null=True)
+    modified_by = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return '%s, %s' % (self.merk, self.tipe)
@@ -63,8 +63,8 @@ class Penyedia(models.Model):
         auto_now_add=True, editable=False, blank=True, null=True)
     modified_date = models.DateTimeField(
         auto_now=True, editable=False, blank=True, null=True)
-    created_by = models.IntegerField(max_length=5, blank=True, null=True)
-    modified_by = models.IntegerField(max_length=5, blank=True, null=True)
+    created_by = models.IntegerField(blank=True, null=True)
+    modified_by = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.nama_perusahaan
@@ -148,7 +148,7 @@ class Kontrak(models.Model):
     # created_by = models.IntegerField(max_length=5, blank=True, null=True)
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
-    modified_by = models.IntegerField(max_length=5, blank=True, null=True)
+    modified_by = models.IntegerField(blank=True, null=True)
     keterangan = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -179,8 +179,8 @@ class LampiranKontrak(models.Model):
         auto_now_add=True, editable=False, blank=True, null=True)
     modified_date = models.DateTimeField(
         auto_now=True, editable=False, blank=True, null=True)
-    created_by = models.IntegerField(max_length=5, blank=True, null=True)
-    modified_by = models.IntegerField(max_length=5, blank=True, null=True)
+    created_by = models.IntegerField(blank=True, null=True)
+    modified_by = models.IntegerField(blank=True, null=True)
 
     # class Meta:
     #   unique_together = [['barang', ]]
