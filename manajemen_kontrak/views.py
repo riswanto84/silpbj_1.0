@@ -303,7 +303,6 @@ def tambah_lampiran_kontrak(request, pk):
 
 @login_required(login_url='login_page')
 def foto_item_pekerjaan(request, pk):
-    
     lampirankontrak = LampiranKontrak.objects.get(id=pk)
     FotoPekerjaanFormset = inlineformset_factory(
         LampiranKontrak, FotoItemPekerjaan, fields=('file_foto',), can_delete=False)
@@ -330,3 +329,29 @@ def foto_item_pekerjaan(request, pk):
     
     return render(request, 'manajemen_kontrak/foto_pekerjaan.html', context)
     
+@login_required(login_url='login_page')
+def tanda_terima_distribusi(request, pk):
+    lampirankontrak = LampiranKontrak.objects.get(id=pk)
+    tandaTerimaFormset = inlineformset_factory(
+        LampiranKontrak, TandaTerimaDistribusi, fields=('file_tanda_terima',), can_delete=False)
+    id_kontrak = lampirankontrak.nomor_kontrak.id
+
+    if request.method == 'POST':
+        formset = tandaTerimaFormset(
+            request.POST, request.FILES, instance=lampirankontrak)
+        if formset.is_valid():
+            formset.save()
+            messages.info(request, 'Data berhasil disimpan')
+            return redirect('DetailKontrak', pk=id_kontrak)
+    
+    formset = tandaTerimaFormset(instance=lampirankontrak)
+    tahun = datetime.now().year
+    files = lampirankontrak.tandaterimadistribusi_set.all()
+
+    context = {
+        'formset': formset,
+        'tahun': tahun,
+        'lampirankontrak': lampirankontrak,
+    }
+
+    return render(request, 'manajemen_kontrak/tanda_terima.html', context)

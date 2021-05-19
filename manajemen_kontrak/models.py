@@ -166,10 +166,6 @@ class Kontrak(models.Model):
     def get_jumlahTotal(self):
         return self.total_harga() + self.get_ppn()
 
-
-class TandaTerimaDistribusi(models.Model):
-    tanda_terima = models.FileField(blank=True, null=True)
-
 class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
@@ -182,7 +178,7 @@ class LampiranKontrak(models.Model):
         auto_now=True, editable=False, blank=True, null=True)
     created_by = models.IntegerField(blank=True, null=True)
     modified_by = models.IntegerField(blank=True, null=True)
-    file_tanda_terima = models.ForeignKey(TandaTerimaDistribusi, blank=True, null=True, on_delete=models.SET_NULL)
+    # file_tanda_terima = models.ForeignKey(TandaTerimaDistribusi, blank=True, null=True, on_delete=models.SET_NULL)
 
     # class Meta:
     #   unique_together = [['barang', ]]
@@ -193,6 +189,9 @@ class LampiranKontrak(models.Model):
     def get_jumlah_harga(self):
         return self.kuantitas * self.harga_satuan
 
+class TandaTerimaDistribusi(models.Model):
+    lampiran_kontrak = models.ForeignKey(LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
+    file_tanda_terima = models.FileField(blank=True, null=True)
 
 class FotoItemPekerjaan(models.Model):
     item_pekerjaan = models.ForeignKey(

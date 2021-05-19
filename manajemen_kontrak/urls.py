@@ -36,4 +36,5 @@ urlpatterns = [
          views.tambah_lampiran_kontrak, name='tambah_lampiran_kontrak'),
     path('foto_item_pekerjaan/<str:pk>',
          views.foto_item_pekerjaan, name='foto_item_pekerjaan'),
+    path('tanda_terima_distribusi/<str:pk>', views.tanda_terima_distribusi, name='tanda_terima_distribusi'),
 ]
