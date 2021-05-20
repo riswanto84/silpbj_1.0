@@ -45,7 +45,7 @@ class Barang(models.Model):
     modified_by = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return '%s, %s' % (self.nama_barang)
+        return '%s, %s' % (self.nama_barang, self.tipe)
 
 
 class Penyedia(models.Model):
@@ -161,7 +161,7 @@ class Kontrak(models.Model):
         )['total_price'] or int('0')
 
     def get_ppn(self):
-        return self.total_harga() * 0.01
+        return self.total_harga() * 0.1
 
     def get_jumlahTotal(self):
         return self.total_harga() + self.get_ppn()
