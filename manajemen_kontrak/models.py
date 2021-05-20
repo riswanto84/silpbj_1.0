@@ -45,7 +45,7 @@ class Barang(models.Model):
     modified_by = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return '%s, %s' % (self.nama_barang, self.tipe)
+        return '%s, %s' % (self.nama_barang)
 
 
 class Penyedia(models.Model):
