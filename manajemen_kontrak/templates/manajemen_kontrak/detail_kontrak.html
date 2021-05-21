@@ -132,7 +132,7 @@
                           <tr>
                             <td class="text-right">{{forloop.counter}}</td>
                             <td>
-                              <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a>
+                              <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"></a>
                               <p>{{i.barang.merk}} {{i.barang.tipe}}</p> 
                               <p><a href="{% url 'foto_item_pekerjaan' i.id %}">foto pekerjaan: <i class="fa fa-file-image" aria-hidden="true"></i></a>
                               &nbsp; <a href="{% url 'tanda_terima_distribusi' i.id %}">Tanda Terima Distribusi: <i class="fa fa-file" aria-hidden="true"></i></a></p>
@@ -158,6 +158,7 @@
                             <td colspan="5" class="text-right"><b>Jumlah Total (Rp)</b></td>
                             <td class="text-right"><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
                           </tr>
+                          <tr></tr>
                     </tbody>
                   </table>
                 </form>

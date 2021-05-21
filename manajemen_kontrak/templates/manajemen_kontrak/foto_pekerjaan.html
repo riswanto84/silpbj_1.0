@@ -40,7 +40,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        
+                      {% for message in messages %}
+                      <div class="alert alert-default-success alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                    {% endfor %}
                         <div>
                           <div class="filter-container p-0 row">
                             {% for image in images %}

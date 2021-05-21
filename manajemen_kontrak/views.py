@@ -242,6 +242,26 @@ def DetailKontrak(request, pk):
     }
     return render(request, 'manajemen_kontrak/detail_kontrak.html', context)
 
+@login_required
+def hapus_detail_kontrak(request, pk):
+    #return HttpResponse("Hapus")
+    try:
+        detail_barang_kontrak = LampiranKontrak.objects.get(id=pk)
+        detail_kontrak = Kontrak.objects.get(id=detail_barang_kontrak.nomor_kontrak_id)
+        item_barang = detail_kontrak.lampirankontrak_set.all()
+        tahun = datetime.now().year
+        detail_barang_kontrak.delete()
+        messages.info(request, 'Data berhasil dihapus')
+        context = {
+            'detail_kontrak': detail_kontrak,
+            'item_barang': item_barang,
+            'tahun': tahun,
+        }
+        return render(request, 'manajemen_kontrak/detail_kontrak.html', context)
+        
+    except RestrictedError:
+        return HttpResponse('Tidak dapat menghapus data..!')
+
 
 @login_required(login_url='login_page')
 def ubah_kontrak(request, pk):
@@ -316,7 +336,7 @@ def foto_item_pekerjaan(request, pk):
         if formset.is_valid():
             formset.save()
             messages.info(request, 'Data berhasil disimpan')
-            return redirect('DetailKontrak', pk=id_kontrak)
+            #return redirect('DetailKontrak', pk=id_kontrak)
 
     formset = FotoPekerjaanFormset(instance=lampirankontrak)
     tahun = datetime.now().year

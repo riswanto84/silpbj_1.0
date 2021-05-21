@@ -29,6 +29,7 @@ urlpatterns = [
     path('EntryKontrak/<str:tahun>', views.EntryKontrak, name='EntryKontrak'),
     path('TambahKontrak', views.TambahKontrak, name='TambahKontrak'),
     path('DetailKontrak/<str:pk>', views.DetailKontrak, name='DetailKontrak'),
+    path('hapus_detail_kontrak/<str:pk>', views.hapus_detail_kontrak, name='hapus_detail_kontrak'),
     path('HapusKontrak/<str:pk>',
          views.hapus_kontrak, name='hapus_kontrak'),
     path('ubah_kontrak/<str:pk>', views.ubah_kontrak, name='ubah_kontrak'),
