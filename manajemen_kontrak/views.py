@@ -362,7 +362,7 @@ def tanda_terima_distribusi(request, pk):
         if formset.is_valid():
             formset.save()
             messages.info(request, 'Data berhasil disimpan')
-            return redirect('DetailKontrak', pk=id_kontrak)
+            # return redirect('DetailKontrak', pk=id_kontrak)
     
     formset = tandaTerimaFormset(instance=lampirankontrak)
     tahun = datetime.now().year
