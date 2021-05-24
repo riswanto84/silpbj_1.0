@@ -56,8 +56,18 @@
             <tr>
               <td class="text-right">{{forloop.counter}}</td>
               <td>{{i.nama_barang}}</td>
-              <td>{{i.merk}}</td>
-              <td>{{i.tipe}}</td>
+              {% if i.merk %}
+                <td>{{i.merk}}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+
+              {% if i.tipe %}
+                <td>{{i.tipe}}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+
               <td class="text-center">
                 <a class="ion ion-eye text-primary identifyingClass" href="{% url 'detail_barang' i.id %}"> detail &nbsp;</a>
                 <a class="ion ion-edit text-success" href="{% url 'ubah_barang' i.id %}"> ubah &nbsp;</a>

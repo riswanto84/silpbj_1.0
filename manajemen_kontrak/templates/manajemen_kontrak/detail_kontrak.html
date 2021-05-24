@@ -87,7 +87,11 @@
                     <tr>
                         <td>Nomor DIPA</td>
                         <td>: {{detail_kontrak.nomor_dipa}}</td>
-                      </tr>
+                    </tr>
+                    <tr>
+                        <td>Kode Kegiatan/Output/Akun</td>
+                        <td>: {{detail_kontrak.kode_kegiatan_output_akun}}</td>
+                    </tr>
                     <tr>
                         <td>Status Kontrak</td>
                         <td>: {{detail_kontrak.status}}</td>
@@ -133,7 +137,11 @@
                             <td class="text-right">{{forloop.counter}}</td>
                             <td>
                               <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"></a>
-                              <p>{{i.barang.merk}} {{i.barang.tipe}}</p> 
+                              <p>
+                              {% if i.barang.merk %}{{i.barang.merk}}{% endif %}
+                              {% if i.barang.merk %}{{i.barang.tipe}}{% endif %}
+                              </p>
+
                               <p><a href="{% url 'foto_item_pekerjaan' i.id %}">foto pekerjaan: <i class="fa fa-file-image" aria-hidden="true"></i></a>
                               &nbsp; <a href="{% url 'tanda_terima_distribusi' i.id %}">Tanda Terima Distribusi: <i class="fa fa-file" aria-hidden="true"></i></a></p>
                             </td>
