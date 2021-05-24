@@ -15,7 +15,8 @@ from crispy_forms.helper import FormHelper
 
 
 def under_contructions(request):
-    raise Http404('Under construction')
+    #raise Http404('Under construction')
+    return render(request, 'manajemen_kontrak/under_constructions.html')
 
 
 def master_template(request):
