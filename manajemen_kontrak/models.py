@@ -27,8 +27,11 @@ class Barang(models.Model):
         ('buah', 'buah'),
         ('roll', 'roll'),
         ('meter', 'meter'),
+        ('m2', 'm2'),
+        ('m1', 'm1'),
         ('set', 'set'),
         ('ls', 'ls'),
+        ('pcs', 'pcs'),
         ('hari', 'hari'),
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
@@ -167,13 +170,13 @@ class Kontrak(models.Model):
         return self.total_harga() * 0.1
 
     def get_jumlahTotal(self):
-        return self.total_harga() + self.get_ppn()
+        return self.total_harga()
 
 class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
         Barang, on_delete=models.RESTRICT)
-    kuantitas = models.IntegerField()
+    kuantitas = models.DecimalField(decimal_places=2)
     harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
