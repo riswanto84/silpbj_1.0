@@ -32,6 +32,8 @@ class Barang(models.Model):
         ('set', 'set'),
         ('ls', 'ls'),
         ('pcs', 'pcs'),
+        ('rim', 'rim'),
+        ('buku', 'buku'),
         ('hari', 'hari'),
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
@@ -176,7 +178,7 @@ class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
         Barang, on_delete=models.RESTRICT)
-    kuantitas = models.DecimalField(decimal_places=2)
+    kuantitas = models.FloatField()
     harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
