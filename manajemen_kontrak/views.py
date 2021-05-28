@@ -294,7 +294,7 @@ def hapus_kontrak(request, pk):
 def tambah_lampiran_kontrak(request, pk):
     kontrak = Kontrak.objects.get(id=pk)
     LampiranKontrakFormset = inlineformset_factory(
-        Kontrak, LampiranKontrak, fields=('barang', 'kuantitas', 'harga_satuan',), can_delete=False)
+        Kontrak, LampiranKontrak, fields=('barang', 'kuantitas', 'harga_satuan',), extra=5, can_delete=False)
     item_barang = kontrak.lampirankontrak_set.all()
     images = request.FILES.getlist('images')
     tahun_anggaran = kontrak.tahun_anggaran

@@ -27,6 +27,15 @@ class Barang(models.Model):
         ('buah', 'buah'),
         ('ls', 'ls'),
         ('hari', 'hari'),
+        ('m1', 'm1'),
+        ('m2', 'm2'),
+        ('bh', 'bh'),
+        ('meter', 'meter'),
+        ('pcs', 'pcs'),
+        ('buku', 'buku'),
+        ('rim', 'rim'),
+        ('set', 'set'),
+        ('roll', 'roll'),
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
         ('tahun', 'tahun'),
@@ -116,8 +125,8 @@ class Kontrak(models.Model):
     )
 
     nomor_dipa = models.CharField(
-        max_length=500, default='027.01.1.440140/' + str(tahun-1))
-    tanggal_dipa = models.DateField(default='2020-12-31')
+        max_length=500, default='027.01.1.440121/' + str(tahun-1))
+    tanggal_dipa = models.DateField(default='2019-11-21')
     tahun_anggaran = models.CharField(
         max_length=4, default=tahun, choices=TAHUN_ANGGARAN)
     nomor_kontrak = models.CharField(
@@ -128,7 +137,7 @@ class Kontrak(models.Model):
     tanggal_kontrak = models.DateField(default=datetime.now)
     tanggal_berakhir_kontrak = models.DateField(default=datetime.now)
     kode_kegiatan_output_akun = models.CharField(
-        max_length=50, default='2228 / 995 / 532111')
+        max_length=50, default='2228.962.004/052/A/532111')
     jenis_pekerjaan = models.CharField(
         max_length=100, choices=JENIS_PEKERJAAN, default='pengadaan barang')
     bentuk_kontrak = models.CharField(
