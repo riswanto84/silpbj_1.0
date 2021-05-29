@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('manajemen_kontrak/', include('manajemen_kontrak.urls')),
     path('', include('manajemen_kontrak.urls')),
-]
+]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # SETTING URL PATTERN
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

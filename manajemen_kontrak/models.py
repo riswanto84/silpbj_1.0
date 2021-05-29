@@ -14,7 +14,7 @@ class UserAdmin(models.Model):
     no_hp = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
     profil_pic = models.ImageField(
-        default="profile.png", blank=True, null=True)
+        default="profile.png", blank=True, null=True, upload_to='profilepics')
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -148,7 +148,7 @@ class Kontrak(models.Model):
                                         default='Denda 1 ‰ untuk setiap hari keterlambatan dari biaya / harga keseluruhan (sebelum PPn)')
     penyedia = models.ForeignKey(Penyedia, on_delete=models.RESTRICT)
     dokumen_pengadaan = models.FileField(
-        max_length=255, upload_to='files/', blank=True, null=True)
+        max_length=255, upload_to='dokumenpengadaan/', blank=True, null=True)
     keterangan = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
@@ -175,11 +175,12 @@ class Kontrak(models.Model):
     def get_jumlahTotal(self):
         return self.total_harga()
 
+
 class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
         Barang, on_delete=models.RESTRICT)
-    kuantitas = models.DecimalField(decimal_places=2)
+    kuantitas = models.DecimalField(max_digits=6, decimal_places=2)
     harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
@@ -198,10 +199,14 @@ class LampiranKontrak(models.Model):
     def get_jumlah_harga(self):
         return self.kuantitas * self.harga_satuan
 
+
 class TandaTerimaDistribusi(models.Model):
-    lampiran_kontrak = models.ForeignKey(LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
+    lampiran_kontrak = models.ForeignKey(
+        LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
     file_tanda_terima = models.FileField(blank=True, null=True)
-    tanggal = models.DateTimeField(auto_now_add=True, editable=False, blank=True, null=True)
+    tanggal = models.DateTimeField(
+        auto_now_add=True, editable=False, blank=True, null=True)
+
 
 class FotoItemPekerjaan(models.Model):
     item_pekerjaan = models.ForeignKey(
@@ -210,4 +215,3 @@ class FotoItemPekerjaan(models.Model):
 
     def __str__(self):
         return '%s, %s' % (self.item_pekerjaan.nomor_kontrak, self.item_pekerjaan.barang.nama_barang)
-
