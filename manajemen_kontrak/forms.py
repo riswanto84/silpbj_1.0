@@ -24,7 +24,7 @@ class FormEntryBarang(ModelForm):
         fields = '__all__'
 
         labels = {
-            'nama_barang': _('Nama Barang'),
+            'nama_barang': _('Nama Barang/Pekerjaan'),
             'spesifikasi_dan_gambar': _('Spesifikasi'),
         }
 
