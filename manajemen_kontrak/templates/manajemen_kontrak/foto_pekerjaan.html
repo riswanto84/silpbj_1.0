@@ -13,15 +13,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Foto Item Pekerjaan</h1>
-            <h5>Item Pekerjaan : {{lampirankontrak.barang.nama_barang}}</h5>
+            <h3 class="m-0">Foto</h3>
+            <h5>{{lampirankontrak.barang.nama_barang}}</h5>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
               <li class="breadcrumb-item"><a href="{% url 'EntryKontrak' tahun %}">Entry Kontrak</a></li>
               <li class="breadcrumb-item"><a href="{% url 'DetailKontrak' lampirankontrak.nomor_kontrak_id %}">Detail Kontrak</a></li>
-              <li class="breadcrumb-item active">Foto Pekerjaan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -65,7 +64,8 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             {{formset|crispy}}
                             {% csrf_token %}
-                            <div class="card-footer">
+                            <hr>
+                            <div>
                                 <input type="hidden" name="modified_by" value="{{user.id}}">
                                 <button type="submit" class="btn btn-primary float-right">Simpan</button>
                             </div>

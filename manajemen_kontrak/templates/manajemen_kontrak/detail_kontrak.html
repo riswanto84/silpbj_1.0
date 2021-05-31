@@ -118,40 +118,63 @@
               <div class="card card-body">
                 <form action="" method="POST">
                   {% csrf_token %}
-                  <table class="table table-bordered table-striped">
-                    <thead>
-                      <th class="text-center">No</th>
-                      <th class="text-center">Nama Barang</th>
-                      <th class="text-center">Spesifikasi</th>
-                      <th class="text-center">Kuantitas</th>
-                      <th class="text-center">Satuan</th>
-                      <th class="text-center">Harga Satuan (Rp)</th>
-                      <th class="text-center">Jumlah (Rp)</th>
-                    </thead>
-                    <tbody>
-                          {% for i in item_barang %}
-                          <tr>
-                            <td class="text-right">{{forloop.counter}}</td>
-                            <td>
-                              <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"></a>
-                              <p>{{i.barang.merk}} {{i.barang.tipe}}</p> 
-                              <p><a href="{% url 'foto_item_pekerjaan' i.id %}">foto pekerjaan: <i class="fa fa-file-image" aria-hidden="true"></i></a>
-                              &nbsp; <a href="{% url 'tanda_terima_distribusi' i.id %}">Tanda Terima Distribusi: <i class="fa fa-file" aria-hidden="true"></i></a></p>
-                            </td>
-                            <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>
-                            <td class="text-center">{{i.kuantitas}}</td>
-                            <td class="text-center">{{i.barang.satuan}}</td>
-                            <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
-                            <td class="text-right">{{i.get_jumlah_harga|floatformat:0|intcomma}}</td>
-                          </tr>
-                          {% endfor %}
-                          <tr>
-                            <td colspan="6" class="text-right"><b>Jumlah Total (Rp)</b></td>
-                            <td class="text-right"><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
-                          </tr>
-                          <tr></tr>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-header">
+          
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                          <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Barang</th>
+                                <th class="text-center">Spesifikasi</th>
+                                <th class="text-center">Kuantitas</th>
+                                <th class="text-center">Satuan</th>
+                                <th class="text-center">Harga Satuan (Rp)</th>
+                                <th class="text-center">Jumlah (Rp)</th>
+                                <th class="text-center">Aksi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for i in item_barang %}
+                              <tr>
+                                <td class="text-right">{{forloop.counter}}</td>
+                                <td>
+                                  <a class="text-dark" href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus</small></a>
+                                  <p>
+                                    {% if i.barang.merk %}
+                                      {{i.barang.merk}} 
+                                    {% endif %}
+                                    {% if i.barang.tipe %}
+                                      {{i.barang.tipe}}
+                                    {% endif %}
+                                  </p> 
+                                  
+                                </td>
+                                <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>
+                                <td class="text-center">{{i.kuantitas}}</td>
+                                <td class="text-center">{{i.barang.satuan}}</td>
+                                <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
+                                <td class="text-right">{{i.get_jumlah_harga|floatformat:0|intcomma}}</td>
+                                <td class="text-center">
+                                  <p><a class="text-primary" href="{% url 'foto_item_pekerjaan' i.id %}"><i class="fa fa-file-image" aria-hidden="true"></i><small> Foto</small></a></p>
+                                  <p><a class="text-primary" href="{% url 'tanda_terima_distribusi' i.id %}"><i class="fa fa-file" aria-hidden="true"></i><small> Tanda terima</a></small></p>
+                                </td>
+                              </tr>
+                             {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    </div>
+                  </div>
+                  <!-- /.row -->
                 </form>
           
               </div>

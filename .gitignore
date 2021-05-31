@@ -1,3 +1,5 @@
 silpbj/settings.py
 db1.sqlite3
 media/
+staticfiles/
+static/
