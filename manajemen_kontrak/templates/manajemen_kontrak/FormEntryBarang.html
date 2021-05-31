@@ -57,8 +57,17 @@
             <tr>
               <td class="text-right">{{forloop.counter}}</td>
               <td>{{i.nama_barang}}</td>
-              {% if i.merk %}<td>{{i.merk}}</td>{% else %}<td></td>{% endif %}
-              {% if i.tipe %}<td>{{i.tipe}}</td>{% else %}<td></td>{% endif %}
+              {% if i.merk %}
+                <td>{{i.merk}}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+
+              {% if i.tipe %}
+                <td>{{i.tipe}}</td>
+              {% else %}<td></td>
+              {% endif %}
+              
               <td>{{i.satuan}}</td>
               <td class="text-center">
                 <a class="ion ion-eye text-primary identifyingClass" href="{% url 'detail_barang' i.id %}"> detail &nbsp;</a>
