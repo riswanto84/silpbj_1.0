@@ -168,6 +168,11 @@
                                 </td>
                               </tr>
                              {% endfor %}
+                               <tr>
+                                 <td colspan="6" class="text-right"><b>Total (Rp)</b></td>
+                                 <td><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
+                                 <td></td>
+                               </tr>
                             </tbody>
                           </table>
                         </div>
