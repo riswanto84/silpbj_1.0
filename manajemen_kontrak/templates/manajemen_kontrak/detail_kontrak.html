@@ -112,7 +112,8 @@
               </div>
               <hr>
               <div class="card-footer">
-                <a href="{% url 'tambah_lampiran_kontrak' detail_kontrak.id %}" class="btn btn-primary float-right">+ Tambah Item</a>
+                <!--  a href="{% url 'tambah_lampiran_kontrak' detail_kontrak.id %}" class="btn btn-primary float-right">+ Tambah Item</a> -->
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal1">+ Tambah</button>
               </div>
 
               <div class="card card-body">
@@ -132,9 +133,9 @@
                                 <th class="text-center">No</th>
                                 <th class="text-center">Nama Barang</th>
                                 <th class="text-center">Spesifikasi</th>
-                                <th class="text-center">Kuantitas</th>
+                                <th class="text-center">Vol</th>
                                 <th class="text-center">Satuan</th>
-                                <th class="text-center">Harga Satuan (Rp)</th>
+                                <th class="text-center">Harga (Rp)</th>
                                 <th class="text-center">Jumlah (Rp)</th>
                                 <th class="text-center">Aksi</th>
                               </tr>
@@ -163,6 +164,7 @@
                                 <td class="text-center">
                                   <p><a class="text-primary" href="{% url 'foto_item_pekerjaan' i.id %}"><i class="fa fa-file-image" aria-hidden="true"></i></a></p>
                                   <p><a class="text-primary" href="{% url 'tanda_terima_distribusi' i.id %}"><i class="fa fa-file" aria-hidden="true"></i></a></p>
+                                  <p><a class="ion ion-edit text-primary" href="{% url 'ubah_detil_rab' i.id %}" ></a></p>
                                 </td>
                               </tr>
                              {% endfor %}
@@ -189,6 +191,50 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!-- modal start -->
+      <div class="modal hide fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Tambah item RAB</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title"></h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="hidden" name="nomor_kontrak_id" value="{{detail_kontrak.id}}">
+                            <input type="hidden" name="created_by" value="{{request.user.id}}">
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                        </form>
+                        <!-- form end -->
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <!-- end modal -->
+
 
 <!-- end of Content Section -->
 

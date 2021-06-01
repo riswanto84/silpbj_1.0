@@ -73,6 +73,7 @@ class FormLampiranKontrak(ModelForm):
         fields = '__all__'
 
         widgets = {
+            'nomor_kontrak': forms.HiddenInput(),
             'modified_by': forms.HiddenInput(),
             'created_by': forms.HiddenInput(),
         }
