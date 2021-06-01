@@ -211,7 +211,7 @@ class TandaTerimaDistribusi(models.Model):
 class FotoItemPekerjaan(models.Model):
     item_pekerjaan = models.ForeignKey(
         LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
-    file_foto = models.ImageField(blank=True, null=True)
+    file_foto = models.ImageField(blank=True, null=True, upload_to='foto_pekerjaan')
 
     def __str__(self):
         return '%s, %s' % (self.item_pekerjaan.nomor_kontrak, self.item_pekerjaan.barang.nama_barang)
