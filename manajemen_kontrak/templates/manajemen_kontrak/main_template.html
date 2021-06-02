@@ -381,6 +381,16 @@
         modal: true,
         footer: true,
       });
+
+      $("#id_tanggal_pemeriksaan").datepicker({
+        value: '{% now "d/m/Y" %}',
+        uiLibrary: "bootstrap4",
+        iconsLibrary: "fontawesome",
+        calendarWeeks: true,
+        modal: true,
+        footer: true,
+      });
+      
     </script>
 
     <script>

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from django.db.models import F, FloatField, IntegerField
 from django.db import models
 from django.contrib.auth.models import User
@@ -14,7 +14,7 @@ class UserAdmin(models.Model):
     no_hp = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
     profil_pic = models.ImageField(
-        default="profile.png", blank=True, null=True, upload_to='profilepics')
+        default="profilepics/avatar.jpeg", blank=True, null=True, upload_to='profilepics')
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -215,3 +215,14 @@ class FotoItemPekerjaan(models.Model):
 
     def __str__(self):
         return '%s, %s' % (self.item_pekerjaan.nomor_kontrak, self.item_pekerjaan.barang.nama_barang)
+
+class PemeriksaanBarang(models.Model):
+    tanggal_pemeriksaan = models.DateField(default=datetime.now)
+    catatan = models.TextField(blank=True, null=True)
+    berkas_pemeriksaan = models.FileField(blank=True, null=True, upload_to='berkas_pemeriksaan')
+    item_pekerjaan = models.ForeignKey(
+        LampiranKontrak, blank=True, null=True, on_delete=models.CASCADE)
+    user_pemeriksa = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.catatan

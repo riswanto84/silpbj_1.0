@@ -137,7 +137,10 @@
                                 <th class="text-center">Satuan</th>
                                 <th class="text-center">Harga (Rp)</th>
                                 <th class="text-center">Jumlah (Rp)</th>
-                                <th class="text-center">Aksi</th>
+                                <th class="text-center">Ubah</th>
+                                <th class="text-center">Foto</th>
+                                <th class="text-center">TTB</th>
+                                <th class="text-center">Catatan Pemeriksaan</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -161,17 +164,18 @@
                                 <td class="text-center">{{i.barang.satuan}}</td>
                                 <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
                                 <td class="text-right">{{i.get_jumlah_harga|floatformat:0|intcomma}}</td>
+                                <td class="text-center"><a class="ion ion-edit text-success" href="{% url 'ubah_detil_rab' i.id %}" ></a></td>
                                 <td class="text-center">
-                                  <p><a class="text-primary" href="{% url 'foto_item_pekerjaan' i.id %}"><i class="fa fa-file-image" aria-hidden="true"></i></a></p>
-                                  <p><a class="text-primary" href="{% url 'tanda_terima_distribusi' i.id %}"><i class="fa fa-file" aria-hidden="true"></i></a></p>
-                                  <p><a class="ion ion-edit text-primary" href="{% url 'ubah_detil_rab' i.id %}" ></a></p>
+                                  <a class="text-primary" href="{% url 'foto_item_pekerjaan' i.id %}"><i class="ion-android-image" aria-hidden="true"></i></a>
                                 </td>
+                                <td class="text-center"><a class="text-primary" href="{% url 'tanda_terima_distribusi' i.id %}"><i class="fa fa-file" aria-hidden="true"></i></a></td>
+                                <td class="text-center"><a class="text-warning" href="{% url 'pemeriksaan_pekerjaan' i.id %}"><i class="fa fa-clipboard" aria-hidden="true"></i></a></td>
                               </tr>
                              {% endfor %}
                                <tr>
                                  <td colspan="6" class="text-right"><b>Total (Rp)</b></td>
                                  <td><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
-                                 <td></td>
+                                 <td colspan="4"></td>
                                </tr>
                             </tbody>
                           </table>

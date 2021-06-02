@@ -418,3 +418,26 @@ def tanda_terima_distribusi(request, pk):
     }
 
     return render(request, 'manajemen_kontrak/tanda_terima.html', context)
+
+@login_required
+def pemeriksaan_pekerjaan(request, pk):
+    lampirankontrak = LampiranKontrak.objects.get(id=pk)
+    form = FormPemeriksaanBarang(initial={'item_pekerjaan': lampirankontrak})
+    log_pemeriksaan = PemeriksaanBarang.objects.filter(item_pekerjaan_id=pk).order_by('-id')
+
+    if request.method == 'POST':
+        form = FormPemeriksaanBarang(request.POST, request.FILES)
+        if form.is_valid():
+            print(request.POST, request.FILES)
+            form.save()
+            messages.info(request, 'Data berhasil disimpan')
+            return redirect('pemeriksaan_pekerjaan', pk)
+    
+    tahun = datetime.now().year
+    context = {
+        'form': form,
+        'tahun': tahun,
+        'lampirankontrak': lampirankontrak,
+        'log_pemeriksaan': log_pemeriksaan,
+    }
+    return render(request, 'manajemen_kontrak/pemeriksaan.html', context)

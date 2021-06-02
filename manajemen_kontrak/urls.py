@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
@@ -42,6 +43,7 @@ urlpatterns = [
          views.foto_item_pekerjaan, name='foto_item_pekerjaan'),
     path('tanda_terima_distribusi/<str:pk>',
          views.tanda_terima_distribusi, name='tanda_terima_distribusi'),
+    path('pemeriksaan_pekerjaan/<str:pk>', views.pemeriksaan_pekerjaan, name='pemeriksaan_pekerjaan'),
 
 
     # path untuk reset password

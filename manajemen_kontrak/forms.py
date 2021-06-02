@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from django.db.models import fields
+from django.forms import ModelForm, widgets
 from manajemen_kontrak.models import *
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -76,4 +77,14 @@ class FormLampiranKontrak(ModelForm):
             'nomor_kontrak': forms.HiddenInput(),
             'modified_by': forms.HiddenInput(),
             'created_by': forms.HiddenInput(),
+        }
+
+class FormPemeriksaanBarang(ModelForm):
+    class Meta:
+        model = PemeriksaanBarang
+        fields = '__all__'
+
+        widgets = {
+            'item_pekerjaan': forms.HiddenInput(),
+            'user_pemeriksa': forms.HiddenInput(),
         }
