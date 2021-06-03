@@ -67,26 +67,17 @@ def accountSettings(request):
 
 @login_required(login_url='login_page')
 def home_dashboard(request):
-
-    test_group = Group.objects.get(name='Bagian Perlengkapan - Biro Umum')
-    user_group = request.user.groups.all()
-    #return HttpResponse(user_group)
-    if test_group in user_group:
-        return HttpResponse('anda adalah pegawai bagian perlengkapan')
-    else:
-        return HttpResponse('anda pegawai bagian lain rumah tangga')
-    
-    #total_barang = Barang.objects.all().count()
-    #total_penyedia = Penyedia.objects.all().count()
-    #total_kontrak = Kontrak.objects.all().count()
-    #tahun = datetime.now().year
-    #context = {
-     #   'total_barang': total_barang,
-      #  'total_penyedia': total_penyedia,
-       # 'total_kontrak': total_kontrak,
-        #'tahun': tahun,
-    #}
-    #return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
+    total_barang = Barang.objects.all().count()
+    total_penyedia = Penyedia.objects.all().count()
+    total_kontrak = Kontrak.objects.all().count()
+    tahun = datetime.now().year
+    context = {
+        'total_barang': total_barang,
+        'total_penyedia': total_penyedia,
+        'total_kontrak': total_kontrak,
+        'tahun': tahun,
+    }
+    return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
 
 # fitur barang
 
