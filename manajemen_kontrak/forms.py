@@ -77,6 +77,7 @@ class FormLampiranKontrak(ModelForm):
             'nomor_kontrak': forms.HiddenInput(),
             'modified_by': forms.HiddenInput(),
             'created_by': forms.HiddenInput(),
+            #'modified_by': forms.HiddenInput(),
         }
 
 class FormPemeriksaanBarang(ModelForm):

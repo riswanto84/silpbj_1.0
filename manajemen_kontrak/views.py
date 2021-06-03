@@ -247,7 +247,7 @@ def DetailKontrak(request, pk):
         kuantitas = request.POST.get('kuantitas')
         harga_satuan = request.POST.get('harga_satuan')
         created_by = request.POST.get('created_by')
-        # return HttpResponse(updated_by)
+        #return HttpResponse(created_by)
         data = LampiranKontrak(
             nomor_kontrak_id=nomor_kontrak_id,
             barang_id=barang_id,
