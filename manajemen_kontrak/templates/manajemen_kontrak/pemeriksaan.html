@@ -66,9 +66,9 @@
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="{{i.user_pemeriksa.useradmin.profil_pic.url}}" alt="">
                         <span class="username">
-                          <a href="#">{{i.user_pemeriksa}}</a>
+                          <a href="#">{{i.user_pemeriksa.useradmin.nama}}</a>
                         </span>
-                        <span class="description">{{i.tanggal_pemeriksaan|date:"d M, Y"}}</span>
+                        <span class="description">catatan pemeriksaan fisik tanggal {{i.tanggal_pemeriksaan|date:"d M Y"}}</span>
                       </div>
                       <!-- /.user-block -->
                       <p>
