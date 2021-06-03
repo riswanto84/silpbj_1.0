@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from django.db.models import fields
+from django.forms import ModelForm, widgets
 from manajemen_kontrak.models import *
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -8,7 +9,7 @@ class UserAdminForm(ModelForm):
     class Meta:
         model = UserAdmin
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user', 'bagian']
 
         labels = {
             'nama': _('Nama Lengkap'),
@@ -24,7 +25,7 @@ class FormEntryBarang(ModelForm):
         fields = '__all__'
 
         labels = {
-            'nama_barang': _('Nama Barang'),
+            'nama_barang': _('Nama Barang/Pekerjaan'),
             'spesifikasi_dan_gambar': _('Spesifikasi'),
         }
 
@@ -73,6 +74,17 @@ class FormLampiranKontrak(ModelForm):
         fields = '__all__'
 
         widgets = {
+            'nomor_kontrak': forms.HiddenInput(),
             'modified_by': forms.HiddenInput(),
             'created_by': forms.HiddenInput(),
+        }
+
+class FormPemeriksaanBarang(ModelForm):
+    class Meta:
+        model = PemeriksaanBarang
+        fields = '__all__'
+
+        widgets = {
+            'item_pekerjaan': forms.HiddenInput(),
+            'user_pemeriksa': forms.HiddenInput(),
         }

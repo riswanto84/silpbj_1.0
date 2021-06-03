@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.db.models.deletion import RestrictedError
 from django.shortcuts import render, HttpResponse, redirect, Http404
 
@@ -15,7 +16,7 @@ from crispy_forms.helper import FormHelper
 
 
 def under_contructions(request):
-    #raise Http404('Under construction')
+    # raise Http404('Under construction')
     return render(request, 'manajemen_kontrak/under_constructions.html')
 
 
@@ -217,7 +218,7 @@ def TambahKontrak(request):
     tahun = datetime.now().year
     if request.method == 'POST':
         form = FormEntryKontrak(request.POST, request.FILES)
-        #tahun = request.POST.get('tahun_anggaran')
+        # tahun = request.POST.get('tahun_anggaran')
         if form.is_valid():
             form.save()
             messages.info(request, 'Data kontrak berhasil disimpan')
@@ -233,33 +234,50 @@ def TambahKontrak(request):
 @login_required(login_url='login_page')
 def DetailKontrak(request, pk):
     detail_kontrak = Kontrak.objects.get(id=pk)
-
     item_barang = detail_kontrak.lampirankontrak_set.all()
+    data_barang = Barang.objects.all()
     tahun = datetime.now().year
+    form = FormLampiranKontrak
+    formubah = FormLampiranKontrak
+
+    if request.method == 'POST':
+        # return HttpResponse('id_kontrak')
+        nomor_kontrak_id = request.POST.get('nomor_kontrak_id')
+        barang_id = request.POST.get('barang')
+        kuantitas = request.POST.get('kuantitas')
+        harga_satuan = request.POST.get('harga_satuan')
+        created_by = request.POST.get('created_by')
+        # return HttpResponse(updated_by)
+        data = LampiranKontrak(
+            nomor_kontrak_id=nomor_kontrak_id,
+            barang_id=barang_id,
+            kuantitas=kuantitas,
+            harga_satuan=harga_satuan,
+            created_by=created_by,
+        )
+        data.save()
+        messages.info(request, 'Data berhasil disimpan')
+
     context = {
         'detail_kontrak': detail_kontrak,
         'item_barang': item_barang,
         'tahun': tahun,
+        'form': form,
+        'formubah': formubah,
     }
     return render(request, 'manajemen_kontrak/detail_kontrak.html', context)
 
-@login_required
+
+@ login_required
 def hapus_detail_kontrak(request, pk):
-    #return HttpResponse("Hapus")
+    # return HttpResponse("Hapus")
     try:
-        detail_barang_kontrak = LampiranKontrak.objects.get(id=pk)
-        detail_kontrak = Kontrak.objects.get(id=detail_barang_kontrak.nomor_kontrak_id)
-        item_barang = detail_kontrak.lampirankontrak_set.all()
-        tahun = datetime.now().year
-        detail_barang_kontrak.delete()
+        detail_kontrak = LampiranKontrak.objects.get(id=pk)
+        id_kontrak = detail_kontrak.nomor_kontrak.id
+        detail_kontrak.delete()
         messages.info(request, 'Data berhasil dihapus')
-        context = {
-            'detail_kontrak': detail_kontrak,
-            'item_barang': item_barang,
-            'tahun': tahun,
-        }
-        return render(request, 'manajemen_kontrak/detail_kontrak.html', context)
-        
+        return redirect('DetailKontrak', pk=id_kontrak)
+
     except RestrictedError:
         return HttpResponse('Tidak dapat menghapus data..!')
 
@@ -322,6 +340,30 @@ def tambah_lampiran_kontrak(request, pk):
 
     # return HttpResponse('tes')
 
+
+@login_required
+def ubah_detil_rab(request, pk):
+    detil_rab = LampiranKontrak.objects.get(id=pk)
+    kontrak = Kontrak.objects.get(id=detil_rab.nomor_kontrak_id)
+    form = FormLampiranKontrak(instance=detil_rab)
+    tahun_anggaran = kontrak.tahun_anggaran
+
+    if request.method == 'POST':
+        kontrak_pk = request.POST.get('kontrak_pk')
+        form = FormLampiranKontrak(request.POST, instance=detil_rab)
+        form.save()
+        messages.info(request, 'Data berhasil diubah')
+        return redirect('DetailKontrak', pk=kontrak_pk)
+
+    context = {
+        'form': form,
+        'detil_rab': detil_rab,
+        'id': pk,
+        'tahun': tahun_anggaran,
+    }
+    return render(request, 'manajemen_kontrak/ubah_detil_rab.html', context)
+
+
 @login_required(login_url='login_page')
 def foto_item_pekerjaan(request, pk):
     lampirankontrak = LampiranKontrak.objects.get(id=pk)
@@ -337,19 +379,20 @@ def foto_item_pekerjaan(request, pk):
         if formset.is_valid():
             formset.save()
             messages.info(request, 'Data berhasil disimpan')
-            #return redirect('DetailKontrak', pk=id_kontrak)
+            # return redirect('DetailKontrak', pk=id_kontrak)
 
     formset = FotoPekerjaanFormset(instance=lampirankontrak)
     tahun = datetime.now().year
     context = {
-       'formset': formset,
-       'tahun': tahun,
-       'lampirankontrak': lampirankontrak,
-       'images': images,
+        'formset': formset,
+        'tahun': tahun,
+        'lampirankontrak': lampirankontrak,
+        'images': images,
     }
-    
+
     return render(request, 'manajemen_kontrak/foto_pekerjaan.html', context)
-    
+
+
 @login_required(login_url='login_page')
 def tanda_terima_distribusi(request, pk):
     lampirankontrak = LampiranKontrak.objects.get(id=pk)
@@ -364,7 +407,7 @@ def tanda_terima_distribusi(request, pk):
             formset.save()
             messages.info(request, 'Data berhasil disimpan')
             # return redirect('DetailKontrak', pk=id_kontrak)
-    
+
     formset = tandaTerimaFormset(instance=lampirankontrak)
     tahun = datetime.now().year
     files = lampirankontrak.tandaterimadistribusi_set.all()
@@ -376,3 +419,34 @@ def tanda_terima_distribusi(request, pk):
     }
 
     return render(request, 'manajemen_kontrak/tanda_terima.html', context)
+
+@login_required
+def pemeriksaan_pekerjaan(request, pk):
+    lampirankontrak = LampiranKontrak.objects.get(id=pk)
+    form = FormPemeriksaanBarang(initial={'item_pekerjaan': lampirankontrak})
+    log_pemeriksaan = PemeriksaanBarang.objects.filter(item_pekerjaan_id=pk).order_by('-id')
+
+    if request.method == 'POST':
+        form = FormPemeriksaanBarang(request.POST, request.FILES)
+        if form.is_valid():
+            print(request.POST, request.FILES)
+            form.save()
+            messages.info(request, 'Data berhasil disimpan')
+            return redirect('pemeriksaan_pekerjaan', pk)
+    
+    tahun = datetime.now().year
+    context = {
+        'form': form,
+        'tahun': tahun,
+        'lampirankontrak': lampirankontrak,
+        'log_pemeriksaan': log_pemeriksaan,
+    }
+    return render(request, 'manajemen_kontrak/pemeriksaan.html', context)
+
+@login_required
+def hapus_catatan_pemeriksaaan(request, pk):
+    #return HttpResponse('Hapus')
+    catatan_pemeriksaan = PemeriksaanBarang.objects.get(id=pk)
+    catatan_pemeriksaan.delete()
+    messages.info(request, 'Data berhasil dihapus')
+    return redirect('pemeriksaan_pekerjaan', catatan_pemeriksaan.item_pekerjaan_id)

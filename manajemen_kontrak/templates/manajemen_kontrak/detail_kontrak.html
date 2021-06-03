@@ -43,6 +43,7 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div class="container-fluid">
+                
                 <div class="row">
                   <table class="table">
                     <tr>
@@ -86,11 +87,7 @@
                     <tr>
                         <td>Nomor DIPA</td>
                         <td>: {{detail_kontrak.nomor_dipa}}</td>
-                    </tr>
-                    <tr>
-                        <td>Kode Kegiatan/Output/Akun</td>
-                        <td>: {{detail_kontrak.kode_kegiatan_output_akun}}</td>
-                    </tr>
+                      </tr>
                     <tr>
                         <td>Status Kontrak</td>
                         <td>: {{detail_kontrak.status}}</td>
@@ -115,49 +112,80 @@
               </div>
               <hr>
               <div class="card-footer">
-                <a href="{% url 'tambah_lampiran_kontrak' detail_kontrak.id %}" class="btn btn-primary float-right">+ Tambah Item</a>
+                <!--  a href="{% url 'tambah_lampiran_kontrak' detail_kontrak.id %}" class="btn btn-primary float-right">+ Tambah Item</a> -->
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal1">+ Tambah</button>
               </div>
 
               <div class="card card-body">
                 <form action="" method="POST">
                   {% csrf_token %}
-                  <table class="table table-bordered table-striped">
-                    <thead>
-                      <th class="text-center">No</th>
-                      <th class="text-center">Nama Barang</th>
-                      <th class="text-center">Spesifikasi</th>
-                      <th class="text-center">Kuantitas</th>
-                      <th class="text-center">Satuan</th>
-                      <th class="text-center">Harga Satuan (Rp)</th>
-                      <th class="text-center">Jumlah (Rp)</th>
-                    </thead>
-                    <tbody>
-                          {% for i in item_barang %}
-                          <tr>
-                            <td class="text-right">{{forloop.counter}}</td>
-                            <td>
-                              <a href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"></a>
-                              <p>
-                              {% if i.barang.merk %}{{i.barang.merk}}{% endif %}
-                              {% if i.barang.merk %}{{i.barang.tipe}}{% endif %}
-                              </p>
-
-                              <p><a href="{% url 'foto_item_pekerjaan' i.id %}">foto pekerjaan: <i class="fa fa-file-image" aria-hidden="true"></i></a>
-                              &nbsp; <a href="{% url 'tanda_terima_distribusi' i.id %}">Tanda Terima Distribusi: <i class="fa fa-file" aria-hidden="true"></i></a></p>
-                            </td>
-                            <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>
-                            <td class="text-center">{{i.kuantitas}}</td>
-                            <td class="text-center">{{i.barang.satuan}}</td>
-                            <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
-                            <td class="text-right">{{i.get_jumlah_harga|floatformat:0|intcomma}}</td>
-                          </tr>
-                          {% endfor %}
-                          <tr>
-                            <td colspan="6" class="text-right"><b>Jumlah Total (Rp)</b></td>
-                            <td class="text-right"><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
-                          </tr>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-header">
+          
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                          <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Barang</th>
+                                <th class="text-center">Spesifikasi</th>
+                                <th class="text-center">Vol</th>
+                                <th class="text-center">Satuan</th>
+                                <th class="text-center">Harga (Rp)</th>
+                                <th class="text-center">Jumlah (Rp)</th>
+                                <th class="text-center">Ubah</th>
+                                <th class="text-center">Foto</th>
+                                <th class="text-center">TTB</th>
+                                <th class="text-center">Catatan Pemeriksaan</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for i in item_barang %}
+                              <tr>
+                                <td class="text-right">{{forloop.counter}}</td>
+                                <td>
+                                  <a class="text-dark" href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus</small></a>
+                                  <p>
+                                    {% if i.barang.merk %}
+                                      {{i.barang.merk}} 
+                                    {% endif %}
+                                    {% if i.barang.tipe %}
+                                      {{i.barang.tipe}}
+                                    {% endif %}
+                                  </p> 
+                                  
+                                </td>
+                                <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>
+                                <td class="text-center">{{i.kuantitas}}</td>
+                                <td class="text-center">{{i.barang.satuan}}</td>
+                                <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
+                                <td class="text-right">{{i.get_jumlah_harga|floatformat:0|intcomma}}</td>
+                                <td class="text-center"><a class="ion ion-edit text-success" href="{% url 'ubah_detil_rab' i.id %}" ></a></td>
+                                <td class="text-center">
+                                  <a class="text-primary" href="{% url 'foto_item_pekerjaan' i.id %}"><i class="ion-android-image" aria-hidden="true"></i></a>
+                                </td>
+                                <td class="text-center"><a class="text-primary" href="{% url 'tanda_terima_distribusi' i.id %}"><i class="fa fa-file" aria-hidden="true"></i></a></td>
+                                <td class="text-center"><a class="text-warning" href="{% url 'pemeriksaan_pekerjaan' i.id %}"><i class="fa fa-clipboard" aria-hidden="true"></i></a></td>
+                              </tr>
+                             {% endfor %}
+                               <tr>
+                                 <td colspan="6" class="text-right"><b>Total (Rp)</b></td>
+                                 <td><b>{{detail_kontrak.get_jumlahTotal|floatformat:0|intcomma}}</b></td>
+                                 <td colspan="4"></td>
+                               </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    </div>
+                  </div>
+                  <!-- /.row -->
                 </form>
           
               </div>
@@ -166,10 +194,56 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+  
+      
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!-- modal start -->
+      <div class="modal hide fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Tambah item RAB</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title"></h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="hidden" name="nomor_kontrak_id" value="{{detail_kontrak.id}}">
+                            <input type="hidden" name="created_by" value="{{request.user.id}}">
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                        </form>
+                        <!-- form end -->
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <!-- end modal -->
+
 
 <!-- end of Content Section -->
 

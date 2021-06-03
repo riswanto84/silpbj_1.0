@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from django.db.models import F, FloatField, IntegerField
 from django.db import models
 from django.contrib.auth.models import User
@@ -14,27 +14,27 @@ class UserAdmin(models.Model):
     no_hp = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
     profil_pic = models.ImageField(
-        default="profile.png", blank=True, null=True)
+        default="profilepics/avatar.jpeg", blank=True, null=True, upload_to='profilepics')
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nama
 
-
 class Barang(models.Model):
     CATEGORY = (
         ('unit', 'unit'),
         ('buah', 'buah'),
-        ('roll', 'roll'),
-        ('meter', 'meter'),
-        ('m2', 'm2'),
-        ('m1', 'm1'),
-        ('set', 'set'),
         ('ls', 'ls'),
-        ('pcs', 'pcs'),
-        ('rim', 'rim'),
-        ('buku', 'buku'),
         ('hari', 'hari'),
+        ('m1', 'm1'),
+        ('m2', 'm2'),
+        ('bh', 'bh'),
+        ('meter', 'meter'),
+        ('pcs', 'pcs'),
+        ('buku', 'buku'),
+        ('rim', 'rim'),
+        ('set', 'set'),
+        ('roll', 'roll'),
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
         ('tahun', 'tahun'),
@@ -147,7 +147,7 @@ class Kontrak(models.Model):
                                         default='Denda 1 ‰ untuk setiap hari keterlambatan dari biaya / harga keseluruhan (sebelum PPn)')
     penyedia = models.ForeignKey(Penyedia, on_delete=models.RESTRICT)
     dokumen_pengadaan = models.FileField(
-        max_length=255, upload_to='files/', blank=True, null=True)
+        max_length=255, upload_to='dokumenpengadaan/', blank=True, null=True)
     keterangan = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
@@ -158,6 +158,7 @@ class Kontrak(models.Model):
         User, on_delete=models.SET_NULL, null=True, blank=True)
     modified_by = models.IntegerField(blank=True, null=True)
     keterangan = models.TextField(null=True, blank=True)
+   
 
     def __str__(self):
         return '%s, %s' % (self.nomor_kontrak, self.judul_kontrak)
@@ -174,11 +175,12 @@ class Kontrak(models.Model):
     def get_jumlahTotal(self):
         return self.total_harga()
 
+
 class LampiranKontrak(models.Model):
     nomor_kontrak = models.ForeignKey(Kontrak, on_delete=models.CASCADE)
     barang = models.ForeignKey(
         Barang, on_delete=models.RESTRICT)
-    kuantitas = models.FloatField()
+    kuantitas = models.DecimalField(max_digits=6, decimal_places=2)
     harga_satuan = models.IntegerField()
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
@@ -197,16 +199,30 @@ class LampiranKontrak(models.Model):
     def get_jumlah_harga(self):
         return self.kuantitas * self.harga_satuan
 
+
 class TandaTerimaDistribusi(models.Model):
-    lampiran_kontrak = models.ForeignKey(LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
-    file_tanda_terima = models.FileField(blank=True, null=True)
-    tanggal = models.DateTimeField(auto_now_add=True, editable=False, blank=True, null=True)
+    lampiran_kontrak = models.ForeignKey(
+        LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
+    file_tanda_terima = models.FileField(blank=True, null=True, upload_to='tanda_terima_distribusi')
+    tanggal = models.DateTimeField(
+        auto_now_add=True, editable=False, blank=True, null=True)
+
 
 class FotoItemPekerjaan(models.Model):
     item_pekerjaan = models.ForeignKey(
         LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
-    file_foto = models.ImageField(blank=True, null=True)
+    file_foto = models.ImageField(blank=True, null=True, upload_to='foto_pekerjaan')
 
     def __str__(self):
         return '%s, %s' % (self.item_pekerjaan.nomor_kontrak, self.item_pekerjaan.barang.nama_barang)
 
+class PemeriksaanBarang(models.Model):
+    tanggal_pemeriksaan = models.DateField(default=datetime.now)
+    catatan = models.TextField(blank=True, null=True)
+    berkas_pemeriksaan = models.FileField(blank=True, null=True, upload_to='berkas_pemeriksaan')
+    item_pekerjaan = models.ForeignKey(
+        LampiranKontrak, blank=True, null=True, on_delete=models.CASCADE)
+    user_pemeriksa = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.catatan
