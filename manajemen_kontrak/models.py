@@ -209,7 +209,7 @@ class LampiranKontrak(models.Model):
 class TandaTerimaDistribusi(models.Model):
     lampiran_kontrak = models.ForeignKey(
         LampiranKontrak, blank=True, null=True, on_delete=models.SET_NULL)
-    file_tanda_terima = models.FileField(blank=True, null=True)
+    file_tanda_terima = models.FileField(blank=True, null=True, upload_to='tanda_terima_distribusi')
     tanggal = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)
 
