@@ -7,11 +7,6 @@ from django.utils.crypto import get_random_string
 from django.db.models import Sum
 from decimal import Decimal
 
-class Bagian(models.Model):
-    nama_bagian = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.nama_bagian
 
 class UserAdmin(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.RESTRICT)
@@ -21,7 +16,6 @@ class UserAdmin(models.Model):
     profil_pic = models.ImageField(
         default="profilepics/avatar.jpeg", blank=True, null=True, upload_to='profilepics')
     date_created = models.DateTimeField(auto_now_add=True)
-    bagian = models.ForeignKey(Bagian, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nama
@@ -164,7 +158,6 @@ class Kontrak(models.Model):
         User, on_delete=models.SET_NULL, null=True, blank=True)
     modified_by = models.IntegerField(blank=True, null=True)
     keterangan = models.TextField(null=True, blank=True)
-    bagian = models.ForeignKey(Bagian, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s, %s' % (self.nomor_kontrak, self.judul_kontrak)
