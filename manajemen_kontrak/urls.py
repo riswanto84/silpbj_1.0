@@ -44,7 +44,7 @@ urlpatterns = [
     path('tanda_terima_distribusi/<str:pk>',
          views.tanda_terima_distribusi, name='tanda_terima_distribusi'),
     path('pemeriksaan_pekerjaan/<str:pk>', views.pemeriksaan_pekerjaan, name='pemeriksaan_pekerjaan'),
-
+    path('hapus_catatatn_pemeriksaan/<str:pk>', views.hapus_catatan_pemeriksaaan, name='hapus_catatan_pemeriksaaan'),
 
     # path untuk reset password
     path('reset_password/', auth_views.PasswordResetView.as_view(),

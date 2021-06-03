@@ -12,7 +12,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Catatan Pemeriksaan</h1>
+              <h1 class="m-0">Entri Catatan Pemeriksaan</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -60,7 +60,7 @@
               <hr>
               <div class="row">
                 <div class="col-12">
-                  <h5>Catatan pemeriksaan untuk item pekerjaan {{lampirankontrak.barang.nama_barang}} : </h5>
+                  <h5>Pemeriksaan item pekerjaan {{lampirankontrak.barang.nama_barang}} : </h5>
                   {% for i in log_pemeriksaan %}
                     <div class="post">
                       <div class="user-block">
@@ -80,6 +80,8 @@
                           <a href="{{i.berkas_pemeriksaan.url}}" class="link-black text-sm"><i class="fa fa-link mr-1"></i> {{i.berkas_pemeriksaan}}</a>
                         </p>
                       {% endif %}
+
+                      <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_catatan_pemeriksaaan' i.id %}" target="_blank" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus catatan pemeriksaan</small></a>
                     </div>
                     {% endfor %}
                 </div>

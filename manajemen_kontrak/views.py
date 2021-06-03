@@ -441,3 +441,11 @@ def pemeriksaan_pekerjaan(request, pk):
         'log_pemeriksaan': log_pemeriksaan,
     }
     return render(request, 'manajemen_kontrak/pemeriksaan.html', context)
+
+@login_required
+def hapus_catatan_pemeriksaaan(request, pk):
+    #return HttpResponse('Hapus')
+    catatan_pemeriksaan = PemeriksaanBarang.objects.get(id=pk)
+    catatan_pemeriksaan.delete()
+    messages.info(request, 'Data berhasil dihapus')
+    return redirect('pemeriksaan_pekerjaan', catatan_pemeriksaan.item_pekerjaan_id)
