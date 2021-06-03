@@ -88,6 +88,7 @@ crispy_forms_tags %} {% load humanize %} {% block content %}
               <th class="text-center">Judul Kontrak</th>
               <th class="text-center">Nama Perusahaan / No. Kontrak</th>
               <th class="text-center">Nilai Kontrak</th>
+              <th class="text-center">Status Kontrak</th>
               <th class="text-center">Aksi</th>
               <th class="text-center">Dokumen Pengadaan</th>
             </tr>
@@ -104,6 +105,7 @@ crispy_forms_tags %} {% load humanize %} {% block content %}
               <td class="text-right" width="20%">
                 Rp. {{i.get_jumlahTotal|floatformat:0|intcomma}}
               </td>
+              <td class="text-center">{{i.status}}</td>
               <td class="text-center">
                 <a
                   class="ion ion-eye text-primary"

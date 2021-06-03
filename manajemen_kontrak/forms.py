@@ -9,7 +9,7 @@ class UserAdminForm(ModelForm):
     class Meta:
         model = UserAdmin
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user', 'bagian']
 
         labels = {
             'nama': _('Nama Lengkap'),
