@@ -345,12 +345,12 @@ def tambah_lampiran_kontrak(request, pk):
 def ubah_detil_rab(request, pk):
     detil_rab = LampiranKontrak.objects.get(id=pk)
     kontrak = Kontrak.objects.get(id=detil_rab.nomor_kontrak_id)
-    form = FormLampiranKontrak(instance=detil_rab)
+    form = FormUbahLampiranKontrak(instance=detil_rab)
     tahun_anggaran = kontrak.tahun_anggaran
 
     if request.method == 'POST':
         kontrak_pk = request.POST.get('kontrak_pk')
-        form = FormLampiranKontrak(request.POST, instance=detil_rab)
+        form = FormUbahLampiranKontrak(request.POST, instance=detil_rab)
         form.save()
         messages.info(request, 'Data berhasil diubah')
         return redirect('DetailKontrak', pk=kontrak_pk)
