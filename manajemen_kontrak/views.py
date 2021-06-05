@@ -12,6 +12,8 @@ from django.forms import modelformset_factory, inlineformset_factory
 from django.core.files.storage import FileSystemStorage
 from crispy_forms.helper import FormHelper
 
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 
@@ -23,7 +25,7 @@ def under_contructions(request):
 def master_template(request):
     return render(request, 'manajemen_kontrak/master_template.html')
 
-
+@csrf_exempt
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('home_dashboard')
@@ -36,8 +38,6 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 return redirect('home_dashboard')
-                # return render(request, 'manajemen_kontrak/MenuDashboardMK.html')
-                # return HttpResponse('tes')
             else:
                 messages.info(request, 'Username atau Password tidak valid!')
         context = {}
