@@ -53,7 +53,7 @@ def logoutUser(request):
 def accountSettings(request):
     user = request.user.useradmin
     form = UserAdminForm(instance=user)
-    # print(form)
+    tahun = datetime.now().year
 
     if request.method == 'POST':
         form = UserAdminForm(request.POST, request.FILES, instance=user)
@@ -61,7 +61,7 @@ def accountSettings(request):
             form.save()
             messages.info(request, 'Data berhasil diubah')
 
-    context = {'form': form}
+    context = {'form': form, 'tahun': tahun,}
     return render(request, 'manajemen_kontrak/account_settings.html', context)
 
 
@@ -106,8 +106,10 @@ def EntryBarang(request):
 @login_required(login_url='login_page')
 def detail_barang(request, pk):
     detail_barang = Barang.objects.get(id=pk)
+    tahun = datetime.now().year
     context = {
         'detail_barang': detail_barang,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/detail_barang.html', context)
 
@@ -116,6 +118,7 @@ def detail_barang(request, pk):
 def ubah_barang(request, pk):
     barang = Barang.objects.get(id=pk)
     form = FormEntryBarang(instance=barang)
+    tahun = datetime.now().year
 
     if request.method == 'POST':
         form = FormEntryBarang(request.POST, instance=barang)
@@ -125,6 +128,7 @@ def ubah_barang(request, pk):
 
     context = {
         'form': form,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/ubah_barang.html', context)
 
@@ -165,8 +169,10 @@ def EntryPenyedia(request):
 @login_required(login_url='login_page')
 def detail_penyedia(request, pk):
     detail_penyedia = Penyedia.objects.get(id=pk)
+    tahun = datetime.now().year
     context = {
         'detail_penyedia': detail_penyedia,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/detail_penyedia.html', context)
 
@@ -175,6 +181,7 @@ def detail_penyedia(request, pk):
 def ubah_penyedia(request, pk):
     penyedia = Penyedia.objects.get(id=pk)
     form = FormEntryPenyedia(instance=penyedia)
+    tahun = datetime.now().year
 
     if request.method == 'POST':
         form = FormEntryPenyedia(request.POST, instance=penyedia)
@@ -184,6 +191,7 @@ def ubah_penyedia(request, pk):
 
     context = {
         'form': form,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/ubah_penyedia.html', context)
 
@@ -208,9 +216,10 @@ def EntryKontrak(request, tahun):
         messages.info(request, 'Menampilkan data kontrak tahun ' + tahun)
         context = {
             'kontrak': kontrak,
+            'tahun': tahun,
         }
         return render(request, 'manajemen_kontrak/FormEntryKontrak.html', context)
-
+    tahun = datetime.now().year
     kontrak = Kontrak.objects.filter(tahun_anggaran=tahun).order_by('-id')
     context = {'kontrak': kontrak, 'tahun': tahun}
     return render(request, 'manajemen_kontrak/FormEntryKontrak.html', context)
