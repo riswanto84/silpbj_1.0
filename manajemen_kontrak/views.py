@@ -71,13 +71,11 @@ def home_dashboard(request):
     total_penyedia = Penyedia.objects.all().count()
     total_kontrak = Kontrak.objects.all().count()
     tahun = datetime.now().year
-    tahun2 = datetime.now().year
     context = {
         'total_barang': total_barang,
         'total_penyedia': total_penyedia,
         'total_kontrak': total_kontrak,
         'tahun': tahun,
-        'tahun2': tahun2,
     }
     return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
 
@@ -88,6 +86,7 @@ def home_dashboard(request):
 def EntryBarang(request):
     form = FormEntryBarang
     data_barang = Barang.objects.all().order_by('-id')
+    tahun = datetime.now().year
 
     if request.method == 'POST':
         form = FormEntryBarang(request.POST)
@@ -99,6 +98,7 @@ def EntryBarang(request):
     context = {
         'data_barang': data_barang,
         'form': form,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/FormEntryBarang.html', context)
 
@@ -145,6 +145,7 @@ def hapus_barang(request, pk):
 def EntryPenyedia(request):
     form = FormEntryPenyedia
     data_penyedia = Penyedia.objects.all().order_by('-id')
+    tahun = datetime.now().year
 
     if request.method == 'POST':
         form = FormEntryPenyedia(request.POST)
@@ -156,6 +157,7 @@ def EntryPenyedia(request):
     context = {
         'data_penyedia': data_penyedia,
         'form': form,
+        'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/FormEntryPenyedia.html', context)
 
