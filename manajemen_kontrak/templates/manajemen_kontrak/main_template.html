@@ -214,21 +214,27 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
-                    Modul
+                    Manajemen Kontrak
                     <i class="fas fa-angle-left right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{% url 'home_dashboard' %}" class="nav-link">
+                    <a href="{% url 'EntryBarang' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Manajemen Kontrak</p>
+                      <p>Entry Barang</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                    <a href="{% url 'EntryPenyedia' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Layanan Tendering</p>
+                      <p>Entry Penyedia</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'EntryKontrak' tahun %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Entry Kontrak</p>
                     </a>
                   </li>
                 </ul>

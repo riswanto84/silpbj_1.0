@@ -240,6 +240,8 @@ def DetailKontrak(request, pk):
     form = FormLampiranKontrak
     formubah = FormLampiranKontrak
 
+    tahun_anggaran = detail_kontrak.tahun_anggaran
+
     if request.method == 'POST':
         # return HttpResponse('id_kontrak')
         nomor_kontrak_id = request.POST.get('nomor_kontrak_id')
@@ -261,7 +263,7 @@ def DetailKontrak(request, pk):
     context = {
         'detail_kontrak': detail_kontrak,
         'item_barang': item_barang,
-        'tahun': tahun,
+        'tahun': tahun_anggaran,
         'form': form,
         'formubah': formubah,
     }

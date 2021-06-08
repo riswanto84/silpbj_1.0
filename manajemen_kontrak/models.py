@@ -38,6 +38,8 @@ class Barang(models.Model):
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
         ('tahun', 'tahun'),
+	('lembar', 'lembar'),
+	('box', 'box'),
     )
 
     nama_barang = models.CharField(max_length=500, blank=True, null=True)
