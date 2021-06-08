@@ -71,11 +71,13 @@ def home_dashboard(request):
     total_penyedia = Penyedia.objects.all().count()
     total_kontrak = Kontrak.objects.all().count()
     tahun = datetime.now().year
+    tahun2 = datetime.now().year
     context = {
         'total_barang': total_barang,
         'total_penyedia': total_penyedia,
         'total_kontrak': total_kontrak,
         'tahun': tahun,
+        'tahun2': tahun2,
     }
     return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
 
