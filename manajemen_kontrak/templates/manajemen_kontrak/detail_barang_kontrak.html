@@ -69,7 +69,7 @@
                   <div class="row">
                     {% for foto in foto %}
                       <div class="col-md-4">
-                          {% if foto.file_foto.url %}
+                          {% if foto.file_foto %}
                               <a href="{{foto.file_foto.url}}" data-toggle="lightbox" data-title="{{foto.file_foto}}">
                               <img src="{{foto.file_foto.url}}" class="img-thumbnail img-responsive" alt="{{foto.file_foto}}" style="width:100%"/>
                               </a>
