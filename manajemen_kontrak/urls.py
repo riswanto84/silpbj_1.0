@@ -17,6 +17,7 @@ urlpatterns = [
     # path untuk use case entry barang
     path('EntryBarang/', views.EntryBarang, name='EntryBarang'),
     path('detail_barang/<str:pk>', views.detail_barang, name='detail_barang'),
+    path('detail_barang_kontrak/<str:pk>', views.detail_barang_kontrak, name='detail_barang_kontrak'),
     path('ubah_barang/<str:pk>', views.ubah_barang, name='ubah_barang'),
     path('hapus_barang/<str:pk>', views.hapus_barang, name='hapus_barang'),
 
@@ -43,7 +44,7 @@ urlpatterns = [
     path('tanda_terima_distribusi/<str:pk>',
          views.tanda_terima_distribusi, name='tanda_terima_distribusi'),
     path('pemeriksaan_pekerjaan/<str:pk>', views.pemeriksaan_pekerjaan, name='pemeriksaan_pekerjaan'),
-    path('hapus_catatatn_pemeriksaan/<str:pk>', views.hapus_catatan_pemeriksaaan, name='hapus_catatan_pemeriksaaan'),
+    path('hapus_catatan_pemeriksaan/<str:pk>', views.hapus_catatan_pemeriksaaan, name='hapus_catatan_pemeriksaaan'),
 
     
     # password reset

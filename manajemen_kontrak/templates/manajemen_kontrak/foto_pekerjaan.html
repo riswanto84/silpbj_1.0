@@ -13,8 +13,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Foto Item Pekerjaan</h1>
-            <h5>Item Pekerjaan : {{lampirankontrak.barang.nama_barang}}</h5>
+            <h1 class="m-0">Foto </h1>
+            <p>Item Pekerjaan : {{lampirankontrak.barang.nama_barang}}</p>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -61,7 +61,7 @@
                             {% endfor %}
                           </div>
                         </div>
-                        <h5>Unggah Foto Pekerjaan</h5>
+                        <h5>Unggah Foto </h5>
                         <form action="" method="POST" enctype="multipart/form-data">
                             {{formset|crispy}}
                             {% csrf_token %}

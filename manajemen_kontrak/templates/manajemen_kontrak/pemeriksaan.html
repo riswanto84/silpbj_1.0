@@ -81,7 +81,7 @@
                         </p>
                       {% endif %}
 
-                      <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_catatan_pemeriksaaan' i.id %}" target="_blank" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus catatan pemeriksaan</small></a>
+                      <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_catatan_pemeriksaaan' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus catatan pemeriksaan</small></a>
                     </div>
                     {% endfor %}
                 </div>

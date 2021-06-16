@@ -113,6 +113,21 @@ def detail_barang(request, pk):
     }
     return render(request, 'manajemen_kontrak/detail_barang.html', context)
 
+@login_required(login_url='login_page')
+def detail_barang_kontrak(request, pk):
+    detail_barang = LampiranKontrak.objects.get(id=pk)
+    foto = detail_barang.fotoitempekerjaan_set.all()
+    log_pemeriksaan = PemeriksaanBarang.objects.filter(item_pekerjaan_id=pk).order_by('-id')
+
+    tahun = datetime.now().year
+    context = {
+        'detail_barang': detail_barang,
+        'tahun': tahun,
+        'foto': foto,
+        'log_pemeriksaan': log_pemeriksaan,
+    }
+    return render(request, 'manajemen_kontrak/detail_barang_kontrak.html', context)
+
 
 @login_required(login_url='login_page')
 def ubah_barang(request, pk):
@@ -219,7 +234,7 @@ def EntryKontrak(request, tahun):
             'tahun': tahun,
         }
         return render(request, 'manajemen_kontrak/FormEntryKontrak.html', context)
-    tahun = datetime.now().year
+    tahun = tahun #datetime.now().year
     kontrak = Kontrak.objects.filter(tahun_anggaran=tahun).order_by('-id')
     context = {'kontrak': kontrak, 'tahun': tahun}
     return render(request, 'manajemen_kontrak/FormEntryKontrak.html', context)

@@ -1,0 +1,122 @@
+{% extends 'manajemen_kontrak/main_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block content %} 
+
+<!-- Content Section -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Detail Item Kontrak</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'EntryKontrak' tahun %}">Entry Kontrak</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'DetailKontrak' detail_barang.nomor_kontrak.id %}">Detail Kontrak</a></li>
+              <li class="breadcrumb-item active">Detail Item Kontrak</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{detail_barang.barang.nama_barang}}</h5>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="container-fluid">
+                <br>
+                <div class="row">
+                  <table class="table">
+                    <tr>
+                        <td>Nama Barang</td>
+                        <td>{{detail_barang.barang.nama_barang}}</td>
+                    </tr>
+                    <tr>
+                        <td>Harga</td>
+                        <td>Rp. {{detail_barang.harga_satuan|floatformat:0|intcomma}} (termasuk pajak)</td>
+                    </tr>
+                    <tr>
+                        <td>No. Kontrak / Tanggal</td>
+                        <td>{{detail_barang.nomor_kontrak.nomor_kontrak}}, tanggal {{detail_barang.nomor_kontrak.tanggal_kontrak|date:'d-m-Y'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Merk</td>
+                        <td>{% if detail_barang.barang.merk %}  {{detail_barang.barang.merk}} {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Tipe</td>
+                        <td>{% if detail_barang.barang.tipe %} {{detail_barang.barang.tipe}} {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Spesifikasi</td>
+                        <td>{{detail_barang.barang.spesifikasi_dan_gambar|safe}}</td>
+                    </tr>
+                </table>
+                <div>
+                  <div class="row">
+                    {% for foto in foto %}
+                      <div class="col-md-4">
+                          {% if foto.file_foto.url %}
+                              <a href="{{foto.file_foto.url}}" data-toggle="lightbox" data-title="{{foto.file_foto}}">
+                              <img src="{{foto.file_foto.url}}" class="img-thumbnail img-responsive" alt="{{foto.file_foto}}" style="width:100%"/>
+                              </a>
+                          {% endif %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="col-12">
+                    <br>
+                    <hr>
+                      <h5>Catatan Pemeriksaan : </h5>
+                      {% for i in log_pemeriksaan %}
+                        <div class="post">
+                          <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="{{i.user_pemeriksa.useradmin.profil_pic.url}}" alt="">
+                            <span class="username">
+                              <a href="#">{{i.user_pemeriksa.useradmin.nama}}</a>
+                            </span>
+                            <span class="description">catatan pemeriksaan fisik tanggal {{i.tanggal_pemeriksaan|date:"d M Y"}}</span>
+                          </div>
+                          <!-- /.user-block -->
+                          <p>
+                            {{i.catatan|safe}}
+                          </p>
+
+                          {% if i.berkas_pemeriksaan %}
+                            <p>
+                              <a href="{{i.berkas_pemeriksaan.url}}" class="link-black text-sm" target="_blank"><i class="fa fa-link mr-1"></i> {{i.berkas_pemeriksaan}}</a>
+                            </p>
+                          {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+              </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+  
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<!-- end of Content Section -->
+
+{% endblock %}

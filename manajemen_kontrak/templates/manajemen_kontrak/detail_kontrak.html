@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <td>Nomor & Tanggal Kontrak</td>
-                        <td>: {{detail_kontrak.nomor_kontrak}}, tanggal {{detail_kontrak.tanggal_kontrak|date:'d-m-yy'}}</td>
+                        <td>: {{detail_kontrak.nomor_kontrak}}, tanggal {{detail_kontrak.tanggal_kontrak|date:'d-m-Y'}}</td>
                     </tr>
                     <tr>
                         <td>Penyedia</td>
@@ -138,8 +138,8 @@
                                 <th class="text-center">Harga (Rp)</th>
                                 <th class="text-center">Jumlah (Rp)</th>
                                 <th class="text-center">Ubah</th>
-                                <th class="text-center">Foto</th>
-                                <th class="text-center">TTB</th>
+                                <th class="text-center">Foto Pekerjaan</th>
+                                <th class="text-center">Tanda Terima</th>
                                 <th class="text-center">Catatan Pemeriksaan</th>
                               </tr>
                             </thead>
@@ -148,7 +148,7 @@
                               <tr>
                                 <td class="text-right">{{forloop.counter}}</td>
                                 <td>
-                                  <a class="text-dark" href="{% url 'detail_barang' i.barang.id %}">{{i.barang.nama_barang}}</a> &nbsp; <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus data?');"><small> hapus</small></a>
+                                  <a href="{% url 'detail_barang_kontrak' i.id %}">{{i.barang.nama_barang}} &nbsp;
                                   <p>
                                     {% if i.barang.merk %}
                                       {{i.barang.merk}} 
@@ -156,10 +156,13 @@
                                     {% if i.barang.tipe %}
                                       {{i.barang.tipe}}
                                     {% endif %}
-                                  </p> 
+                                  </p>
+                                  </a>
+                                  <br>
+                                  <a class="ion ion-android-cancel text-danger" alt="Hapus Data" href="{% url 'hapus_detail_kontrak' i.id %}" onclick="return confirm('Anda yakin akan menghapus item barang ini?');"><small> hapus</small></a>
                                   
                                 </td>
-                                <td>{{i.barang.spesifikasi_dan_gambar|safe}}</td>
+                                <td><small>{{i.barang.spesifikasi_dan_gambar|safe}}</small></td>
                                 <td class="text-center">{{i.kuantitas}}</td>
                                 <td class="text-center">{{i.barang.satuan}}</td>
                                 <td class="text-right">{{i.harga_satuan|floatformat:0|intcomma}}</td>
