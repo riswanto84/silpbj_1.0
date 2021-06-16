@@ -13,7 +13,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Foto </h1>
+            <h1 class="m-0">Unggah Foto </h1>
             <p>Item Pekerjaan : {{lampirankontrak.barang.nama_barang}}</p>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -53,7 +53,7 @@
                             {% for image in images %}
                             <div class="filtr-item col-sm-2" data-category="2, 4" data-sort="black sample">
                               {% if image.file_foto %}
-                              <a href="{{image.file_foto.url}}" data-toggle="lightbox" data-title="{{image.file_foto}}">
+                              <a href="{{image.file_foto.url}}" data-toggle="lightbox" data-title="{{lampirankontrak.barang.nama_barang}} {{lampirankontrak.barang.merk}} {{lampirankontrak.barang.tipe}}">
                                 <img src="{{image.file_foto.url}}" class="img-fluid mb-2" alt="black sample"/>
                               </a>
                               {% endif %}
@@ -61,7 +61,6 @@
                             {% endfor %}
                           </div>
                         </div>
-                        <h5>Unggah Foto </h5>
                         <form action="" method="POST" enctype="multipart/form-data">
                             {{formset|crispy}}
                             {% csrf_token %}
