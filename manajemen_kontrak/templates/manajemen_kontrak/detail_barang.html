@@ -43,12 +43,16 @@
                         <td>{{detail_barang.nama_barang}}</td>
                     </tr>
                     <tr>
+                        <td>Satuan</td>
+                        <td>{{detail_barang.satuan}}</td>
+                    </tr>
+                    <tr>
                         <td>Merk</td>
-                        <td>{{detail_barang.merk}}</td>
+                        <td> {% if detail_barang.merk %} {{detail_barang.merk}} {% endif %}</td>
                     </tr>
                     <tr>
                         <td>Tipe</td>
-                        <td>{{detail_barang.tipe}}</td>
+                        <td>{% if detail_barang.merk %} {{detail_barang.tipe}} {% endif %}</td>
                     </tr>
                     <tr>
                         <td>Spesifikasi</td>
