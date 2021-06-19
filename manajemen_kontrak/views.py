@@ -287,6 +287,7 @@ def DetailKontrak(request, pk):
         )
         data.save()
         messages.info(request, 'Data berhasil disimpan')
+        return redirect('DetailKontrak', pk)
 
     context = {
         'detail_kontrak': detail_kontrak,
