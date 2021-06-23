@@ -320,14 +320,19 @@ def ubah_kontrak(request, pk):
     tahun_anggaran = kontrak.tahun_anggaran
 
     if request.method == 'POST':
-        form = FormEntryKontrak(request.POST, request.FILES, instance=kontrak)
+        form = FormEntryKontrak(request.POST or None, request.FILES or None, instance=kontrak)
         if form.is_valid():
             form.save()
             messages.info(request, 'Data berhasil diubah')
             return redirect('EntryKontrak', tahun=tahun_anggaran)
 
-    context = {'form': form, 'tahun': tahun_anggaran}
+    context = {
+        'form': form, 
+        'tahun': tahun_anggaran,
+        'kontrak': kontrak,
+    }
     return render(request, 'manajemen_kontrak/FormUbahKontrak.html', context)
+
 
 
 @login_required(login_url='login_page')

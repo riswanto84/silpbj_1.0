@@ -20,6 +20,12 @@ class UserAdmin(models.Model):
     def __str__(self):
         return self.nama
 
+class SatuanBarang(models.Model):
+	satuan = models.CharField(max_length=100, blank=True, null=True)
+
+	def __str__(self):
+		return self.satuan
+
 class Barang(models.Model):
     CATEGORY = (
         ('unit', 'unit'),
@@ -40,14 +46,15 @@ class Barang(models.Model):
         ('minggu', 'minggu'),
         ('bulan', 'bulan'),
         ('tahun', 'tahun'),
-	('lembar', 'lembar'),
-	('box', 'box'),
+		('lembar', 'lembar'),
+		('box', 'box'),
     )
 
     nama_barang = models.CharField(max_length=500, blank=True, null=True)
     merk = models.CharField(max_length=200, blank=True, null=True)
     tipe = models.CharField(max_length=200, blank=True, null=True)
-    satuan = models.CharField(max_length=100, choices=CATEGORY)
+    #satuan = models.CharField(max_length=100, choices=CATEGORY)
+    satuan = models.ForeignKey(SatuanBarang, on_delete=models.SET_NULL, null=True, blank=True, default=1)
     spesifikasi_dan_gambar = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True)

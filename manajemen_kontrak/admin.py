@@ -3,6 +3,7 @@ from .models import *
 
 admin.site.register(UserAdmin)
 admin.site.register(Barang)
+admin.site.register(SatuanBarang)
 admin.site.register(Penyedia)
 admin.site.register(Kontrak)
 admin.site.register(LampiranKontrak)

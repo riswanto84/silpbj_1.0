@@ -45,6 +45,8 @@ urlpatterns = [
          views.tanda_terima_distribusi, name='tanda_terima_distribusi'),
     path('pemeriksaan_pekerjaan/<str:pk>', views.pemeriksaan_pekerjaan, name='pemeriksaan_pekerjaan'),
     path('hapus_catatan_pemeriksaan/<str:pk>', views.hapus_catatan_pemeriksaaan, name='hapus_catatan_pemeriksaaan'),
+    #simpan_perubahan_kontrak
+    #path('ubah_kontrak_save/', views.ubah_kontrak_save, name='ubah_kontrak_save'),
 
     
     # password reset
