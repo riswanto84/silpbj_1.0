@@ -495,3 +495,5 @@ def hapus_catatan_pemeriksaaan(request, pk):
     catatan_pemeriksaan.delete()
     messages.info(request, 'Data berhasil dihapus')
     return redirect('pemeriksaan_pekerjaan', catatan_pemeriksaan.item_pekerjaan_id)
+
+
