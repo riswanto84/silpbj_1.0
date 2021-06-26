@@ -88,16 +88,25 @@ def EntryBarang(request):
     data_barang = Barang.objects.all().order_by('-id')
     tahun = datetime.now().year
 
+    formSatuan = FormSatuanBarang
+
     if request.method == 'POST':
         form = FormEntryBarang(request.POST)
+        form_satuan = FormSatuanBarang(request.POST)
+
         if form.is_valid():
             form.save()
+            messages.info(request, 'Data berhasil disimpan')
+            return redirect('EntryBarang')
+        elif form_satuan.is_valid():
+            form_satuan.save()
             messages.info(request, 'Data berhasil disimpan')
             return redirect('EntryBarang')
 
     context = {
         'data_barang': data_barang,
         'form': form,
+        'form_satuan': FormSatuanBarang,
         'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/FormEntryBarang.html', context)

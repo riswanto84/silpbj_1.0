@@ -101,3 +101,8 @@ class FormPemeriksaanBarang(ModelForm):
             'item_pekerjaan': forms.HiddenInput(),
             'user_pemeriksa': forms.HiddenInput(),
         }
+
+class FormSatuanBarang(ModelForm):
+    class Meta:
+        model = SatuanBarang
+        fields = '__all__'
