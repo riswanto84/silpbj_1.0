@@ -82,7 +82,7 @@
             <tr>
               <td class="text-right">{{forloop.counter}}</td>
               <td>{{i.judul_kontrak}}</td>
-              <td>{{i.penyedia.nama_perusahaan}} <br> No. Kontrak: {{i.nomor_kontrak}}, {{i.tanggal_kontrak}}</td>
+              <td>{{i.penyedia.nama_perusahaan}} <br> No. Kontrak: {{i.nomor_kontrak}}, tanggal {{i.tanggal_kontrak|date:'d-m-Y'}}</td>
               <td class="text-right" width=20%>
                     Rp.  {{i.get_jumlahTotal|floatformat:0|intcomma}}
               </td>
