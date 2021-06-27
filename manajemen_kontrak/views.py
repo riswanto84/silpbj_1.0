@@ -23,7 +23,7 @@ def under_contructions(request):
 
 
 def master_template(request):
-    return render(request, 'manajemen_kontrak/master_template.html')
+    return render(request, 'manajemen_kontrak/admin_lte/main-content.html')
 
 @csrf_exempt
 def login_page(request):
@@ -79,6 +79,20 @@ def home_dashboard(request):
     }
     return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
 
+# coba modifikasi dashboard, bagian ini belum live
+@login_required(login_url='login_page')
+def dashboard(request):
+    total_barang = Barang.objects.all().count()
+    total_penyedia = Penyedia.objects.all().count()
+    total_kontrak = Kontrak.objects.all().count()
+    tahun = datetime.now().year
+    context = {
+        'total_barang': total_barang,
+        'total_penyedia': total_penyedia,
+        'total_kontrak': total_kontrak,
+        'tahun': tahun,
+    }
+    return render(request, 'manajemen_kontrak/admin_lte/dashboard.html', context)
 # fitur barang
 
 

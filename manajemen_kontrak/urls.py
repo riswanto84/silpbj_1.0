@@ -12,6 +12,9 @@ urlpatterns = [
     path('', views.login_page, name='login_page'),
     path('logout/', views.logoutUser, name='logout'),
     path('home_dashboard/', views.home_dashboard, name='home_dashboard'),
+
+    path('dashboard/', views.dashboard, name='dashboard'),
+
     path('account_setting/', views.accountSettings, name='account_setting'),
 
     # path untuk use case entry barang
