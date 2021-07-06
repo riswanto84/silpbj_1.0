@@ -51,6 +51,8 @@ urlpatterns = [
     #simpan_perubahan_kontrak
     #path('ubah_kontrak_save/', views.ubah_kontrak_save, name='ubah_kontrak_save'),
 
+    path('repositori_harga/', views.repositori_harga, name='repositori_harga'),
+
     
     # password reset
     path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),

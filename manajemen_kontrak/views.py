@@ -70,11 +70,14 @@ def home_dashboard(request):
     total_barang = Barang.objects.all().count()
     total_penyedia = Penyedia.objects.all().count()
     total_kontrak = Kontrak.objects.all().count()
+    total_repoharga = LampiranKontrak.objects.all().count()
+
     tahun = datetime.now().year
     context = {
         'total_barang': total_barang,
         'total_penyedia': total_penyedia,
         'total_kontrak': total_kontrak,
+        'total_repoharga': total_repoharga,
         'tahun': tahun,
     }
     return render(request, 'manajemen_kontrak/MenuDashboardMK.html', context)
@@ -509,5 +512,16 @@ def hapus_catatan_pemeriksaaan(request, pk):
     catatan_pemeriksaan.delete()
     messages.info(request, 'Data berhasil dihapus')
     return redirect('pemeriksaan_pekerjaan', catatan_pemeriksaan.item_pekerjaan_id)
+
+@login_required
+def repositori_harga(request):
+    tahun = datetime.now().year
+    lampirankontrak = LampiranKontrak.objects.all()
+
+    context = {
+        'tahun': tahun,
+        'lampirankontrak': lampirankontrak,
+    }
+    return render(request, 'manajemen_kontrak/repositori_harga.html', context)
 
 

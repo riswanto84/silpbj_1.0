@@ -47,7 +47,7 @@
                             </div>
                         {% endfor %}
 
-                        <form id="upload-form" action="{% url 'ubah_kontrak' kontrak.id %}" method="POST" enctype="multipart/form-data" <!--onsubmit="onFormSubmit(event)"--> >
+                        <form id="upload-form" action="{% url 'ubah_kontrak' kontrak.id %}" method="POST" enctype="multipart/form-data"> <!--onsubmit="onFormSubmit(event)"--> 
                             {% csrf_token %}
                             {{form|crispy}}
                             <div class="form-group" style="display:none;" id="progress_div">
