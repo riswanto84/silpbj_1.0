@@ -14,7 +14,8 @@ from crispy_forms.helper import FormHelper
 
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+# Pagination.
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def under_contructions(request):
@@ -524,4 +525,26 @@ def repositori_harga(request):
     }
     return render(request, 'manajemen_kontrak/repositori_harga.html', context)
 
+@login_required
+def repo_harga(request):
+    tahun = datetime.now().year
+    object_lists = LampiranKontrak.objects.all()
+    paginator = Paginator(object_lists, 10) # 10 posts in each page
+    page = request.GET.get('page')
+    try:
+        lampirankontrak = paginator.page(page)
+    except PageNotAnInteger:
+        lampirankontrak = paginator.page(1)
+    except EmptyPage:
+        lampirankontrak = paginator.page(paginator.num_pages)
 
+    if request.method == 'POST':
+        keyword = request.POST.get('search')
+        return HttpResponse(keyword)
+
+    context = {
+        'tahun': tahun,
+        'page': page,
+        'lampirankontrak': lampirankontrak,
+    }
+    return render(request, 'manajemen_kontrak/repo_harga.html', context)

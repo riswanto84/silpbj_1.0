@@ -52,6 +52,7 @@ urlpatterns = [
     #path('ubah_kontrak_save/', views.ubah_kontrak_save, name='ubah_kontrak_save'),
 
     path('repositori_harga/', views.repositori_harga, name='repositori_harga'),
+    path('repo_harga/', views.repo_harga, name='repo_harga'),
 
     
     # password reset
