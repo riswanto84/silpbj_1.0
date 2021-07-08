@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('manajemen_kontrak/', include('manajemen_kontrak.urls')),
     path('', include('manajemen_kontrak.urls')),
+    path('manajemen_ukpbj/', include('manajemen_ukpbj.urls')),
 ]
 
 # SETTING URL PATTERN

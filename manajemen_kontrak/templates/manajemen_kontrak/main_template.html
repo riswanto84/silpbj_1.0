@@ -216,6 +216,7 @@
                with font-awesome or any other icon font library -->
               <li class="nav-header">SiLP</li>
 
+              <!-- Manajemen kontrak -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
@@ -251,6 +252,72 @@
                   </li>
                 </ul>
               </li>
+              <!-- End of manajemen kontrak -->
+
+              <!-- Manajemen UKPBJ -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa fa-address-book"></i>
+                  <p>
+                    Manajemen UKPBJ
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'pegawai_bersertifikat' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pegawai Bersertifikat</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pokja Pemilihan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Paket Pengadaan</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- End of manajemen UKPBJ -->
+
+              <!-- Knowledge Base -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-archive"></i>
+                  <p>
+                    Knowledge Base
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>UKPBJ Kemensos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Materi Sosialisasi</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'under_contructions' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Regulasi Pengadaan</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- End of knowledge -->
+
             </ul>
           </nav>
           <!-- /.sidebar-menu -->
