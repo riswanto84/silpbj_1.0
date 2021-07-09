@@ -37,21 +37,31 @@ def detail_pegawai_bersertifikat(request, pk):
 	api_kemsos = 'https://api-internal.kemensos.go.id/api/pegawai2/' + nip
 	response = requests.get(api_kemsos)
 	data_pegawai = response.json()
+	status_pencarian = data_pegawai['code']
+	# jika terdapat data dengan NIP yg sesuai
+	if status_pencarian == 404:
+		context = {
+			'tahun': tahun,
+			'data_pegawai': pegawai,
+			'nip': pegawai.nip,
+		}
+
+	elif status_pencarian ==200:
+		context = {
+			'tahun': tahun,
+			'data_pegawai': pegawai,
+			'nama': data_pegawai['data'][0]['nm_peg'],
+			'nip': data_pegawai['data'][0]['nip'],
+			'npwp': data_pegawai['data'][0]['npwp'],
+			'jabatan': data_pegawai['data'][0]['nm_jabatan'],
+			'unit_kerja': data_pegawai['data'][0]['UNIT_KERJA'],
+			'gelar_preffix': data_pegawai['data'][0]['GELAR_PREFIX'],
+			'gelar_suffix': data_pegawai['data'][0]['GELAR_SUFFIX'],
+
+		}
 	
-	context = {
-		'tahun': tahun,
-		'data_pegawai': pegawai,
-		'nama': data_pegawai['data'][0]['nm_peg'],
-		'nip': data_pegawai['data'][0]['nip'],
-		'npwp': data_pegawai['data'][0]['npwp'],
-		'jabatan': data_pegawai['data'][0]['nm_jabatan'],
-		'unit_kerja': data_pegawai['data'][0]['UNIT_KERJA'],
-		'gelar_preffix': data_pegawai['data'][0]['GELAR_PREFIX'],
-		'gelar_suffix': data_pegawai['data'][0]['GELAR_SUFFIX'],
-
-	}
-
 	return render(request, 'manajemen_ukpbj/detail_pegawai_bersertifikat.html', context)
+
 
 def edit_pegawai_bersertifikat(request, pk):
 	tahun = datetime.now().year
