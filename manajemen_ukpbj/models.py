@@ -18,6 +18,7 @@ class PegawaiBersertifikat(models.Model):
 	nomor_sertifikat = models.CharField(max_length=100, blank=True, null=True)
 	jenis_sertifikat = models.CharField(max_length=100, choices=CATEGORY, default='Tingkat Dasar')
 	file_sertifikat = models.FileField(max_length=255, upload_to='sertifikat_pbj/', blank=True, null=True)
+	foto = models.ImageField(default="profilepics/avatar.jpeg", blank=True, null=True, upload_to='profilepics')
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
