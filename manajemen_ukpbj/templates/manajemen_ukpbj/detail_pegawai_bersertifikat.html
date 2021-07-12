@@ -67,6 +67,25 @@
                 <div class="col-md-8">
                     <div class="card card-body table-responsive p-0">
                       <table class="table table-bordered table-striped">
+                        <tr>
+                          <td>Status Kepegawaian</td>
+                          <td>:</td>
+                          <td>{{ data_pegawai.status_kepegawaian }}</td>
+                        </tr>
+                        <tr>
+                          <td>Terdaftar Sebagai Pokja</td>
+                          <td>:</td>
+                          <td>{{ data_pegawai.sebagai_pokja_pemilihan }}</td>
+                        </tr>
+                        <tr>
+                          <td>SK Pokja</td>
+                          <td>:</td>
+                          <td>
+                            <a class="fa fa-download" href="{{ data_pegawai.sk_pokja.file_sk.url }}" target="_blank">
+                                {{ data_pegawai.sk_pokja.nomor_sk }}, tanggal {{ data_pegawai.sk_pokja.tanggal_sk|date:'d-M-Y' }}
+                            </a>
+                          </td>
+                        </tr>
                       	<tr>
                       		<td>Unit Kerja</td>
                       		<td>:</td>
@@ -83,11 +102,11 @@
                       		<td>{{ data_pegawai.nomor_hp }}</td>
                       	</tr>
                       	<tr>
-                      		<td>Nomor Sertifikat</td>
+                      		<td>Nomor Sertifikat / Tanggal</td>
                       		<td>:</td>
                       		<td>
                       		 {% if data_pegawai.nomor_sertifikat %}
-                      			{{ data_pegawai.nomor_sertifikat }}
+                      			{{ data_pegawai.nomor_sertifikat }}, {{ data_pegawai.tanggal_sertifikat|date:'d-m-Y' }}
                       		 {% else %}
                       		 	<p>-</p>
                       		 {% endif %}

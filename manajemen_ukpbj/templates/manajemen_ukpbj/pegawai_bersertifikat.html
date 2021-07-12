@@ -13,12 +13,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"></h1>
+            <h5 class="m-0">Data Pegawai Bersertifikat Ahli Pengadaan Barang/Jasa</h5>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
-               <li class="breadcrumb-item active">Data Sertifikasi Pengadaan</li>
+               <li class="breadcrumb-item active">Pegawai Bersertifikat Pengadaan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -48,6 +48,7 @@
               <th class="text-center">No</th>
               <th class="text-center">Nama Pegawai</th>
               <th class="text-center">NIP</th>
+              <th class="text-center">Status Kepegawaian</th>
               <th class="text-center">Email</th>
               <th class="text-center">File Sertifikat</th>
               <th class="text-center">Detail</th>
@@ -59,6 +60,7 @@
                   <td>{{ forloop.counter }}</td>
                   <td>{{ data.nama }}</td>
                   <td>{{ data.nip }}</td>
+                   <td class="text-center">{{ data.status_kepegawaian }}</td>
                   <td>{{ data.email }}</td>
                   <td class="text-center">
                     {% if data.file_sertifikat %}
