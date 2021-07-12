@@ -62,6 +62,7 @@ class PaketPekerjaan(models.Model):
 		('Persiapan Pengadaan', 'persiapan pengadaan'),
 		('Proses Tender', 'proses tender'),
 		('Selesai Tender', 'selesai tender'),
+		('Gagal Tender', 'gagal tender'),
 	)
 
 	TAHUN_ANGGARAN = (
@@ -95,6 +96,7 @@ class PaketPekerjaan(models.Model):
 	pokja_pemilihan = models.ManyToManyField(PegawaiBersertifikat)
 	status_paket = models.CharField(max_length=100, choices=STATUS_PAKET, default='Persiapan Pengadaan')
 	arsip_dokumen_pengadaan = models.FileField(upload_to='arsip_dokumen_pengadaan', blank=True, null=True)
+	keterangan = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return self.nama_paket
