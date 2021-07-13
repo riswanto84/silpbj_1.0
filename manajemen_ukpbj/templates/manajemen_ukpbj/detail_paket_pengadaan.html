@@ -1,0 +1,245 @@
+{% extends 'manajemen_kontrak/main_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block content %}
+
+<!-- Content Section -->
+<div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h4>Detail Paket Pengadaan</h4>
+                </div>
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'paket_pengadaan' tahun %}">Paket Pengadaan</a></li>
+                    <li class="breadcrumb-item active">Detail Paket Pengadaan</li>
+                </ol>
+                </div>
+            </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+            <br>
+            {% for message in messages %}
+                      <div class="alert alert-default-success alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-body table-responsive p-0">
+                      <table class="table table-striped">
+                        <tr>
+                          <td>Nama Paket</td>
+                          <td>:</td>
+                          <td>{{ data_objects.nama_paket }}</td>
+                        </tr>
+                        <tr>
+                          <td>Pagu Anggaran</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.nilai_pagu %}
+                              {{ data_objects.nilai_pagu|floatformat:0|intcomma }}
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Nilai HPS</td>
+                          <td>:</td>
+                          <td>{% if data_objects.nilai_hps %} 
+                                  {{ data_objects.nilai_hps|floatformat:0|intcomma }}
+                              {% else %}
+                                N/A
+                              {% endif %}
+                          </td>
+                        </tr>
+                      	<tr>
+                      		<td>Nilai Hasil Tender</td>
+                      		<td>:</td>
+                      		<td>
+                            {% if data_objects.nilai_hasil_tender %}
+                              {{ data_objects.nilai_hasil_tender|floatformat:0|intcomma }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                      	</tr>
+                      	<tr>
+                      		<td>Tahun Anggaran</td>
+                      		<td>:</td>
+                      		<td>{{ data_objects.tahun_anggaran }}</td>
+                      	</tr>
+                      	<tr>
+                      		<td>Nomor Surat Tugas</td>
+                      		<td>:</td>
+                      		<td>{{ data_objects.nomor_surat_tugas }}</td>
+                      	</tr>
+                      	<tr>
+                      		<td>File Surat Tugas</td>
+                      		<td>:</td>
+                      		<td>
+                      		 <a class="fa fa-download" target="_blank" href="{{ data_objects.file_surat_tugas.url }}"> unduh</a>
+                      		</td>
+                      	</tr>
+                      	<tr>
+                      		<td>File Dokumen HPS</td>
+                      		<td>:</td>
+                      		<td>
+                            {% if data_objects.dokumen_hps %}
+                              {{ data_objects.dokumen_hps }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                      	</tr>
+                      	<tr>
+                      		<td>Dokumen KAK/Spesifikasi Teknis</td>
+                      		<td>:</td>
+                      		<td>
+                            {% if data_objects.dokumen_kak_spek %}
+                            <a class="fa fa-download" target="_blank" href="{{ data_objects.dokumen_kak_spek.url }}"> unduh</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                      		</td>
+                      	</tr>
+                        <tr>
+                          <td>Satuan Kerja Pengguna</td>
+                          <td>:</td>
+                          <td>{{ data_objects.satker_pengguna }}</td>
+                        </tr>
+                      	<tr>
+                      		<td>Nomor Surat Usulan Tender</td>
+                      		<td>:</td>
+                      		<td>{{ data_objects.nomor_surat_usulan_tender }}</td>
+                      	</tr>
+                        <tr>
+                          <td>Tanggal Usulan Tender</td>
+                          <td>:</td>
+                          <td>{{ data_objects.tanggal_usulan }}</td>
+                        </tr>
+                        <tr>
+                          <td>File Dokumen Surat Usulan Tender</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.dokumen_surat_usulan %}
+                              <a class="fa fa-download" target="_blank" href="{{ data_objects.dokumen_surat_usulan.url }}"> unduh</a>
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Kode RUP</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.kode_rup %}
+                              {{ data_objects.kode_rup }}
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Kode Tender</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.kode_tender %}
+                              {{ data_objects.kode_tender }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Pokja Pemilihan</td>
+                          <td>:</td>
+                          <td>
+                            {% for pokja in data_objects.pokja_pemilihan.all %}
+                              <a href="{% url 'detail_pegawai_bersertifikat' pokja.id %}">{{forloop.counter}}. {{ pokja }} </a><br>
+                            {% endfor %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Status Paket</td>
+                          <td>:</td>
+                          <td>
+                            {{ data_objects.status_paket }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>File Dokumen Pengadaan</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.arsip_dokumen_pengadaan %}
+                              <a class="fa fa-download" target="_blank" href="{{ data_objects.arsip_dokumen_pengadaan.url }}"> unduh</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Keterangan</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_objects.keterangan %}
+                              {{ data_objects.keterangan|safe }}
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Tautan Tender</td>
+                          <td>:</td>
+                          <td>
+                            {% if link_tender %}
+                              <a target="_blank" href="{{ link_tender }}">{{ link_tender }}</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Pemenang Tender</td>
+                          <td>:</td>
+                          <td>
+                            {% if data_json %}
+                              {% for data in  data_json %}
+                              <p>{{ data.nama_pemenang }}</p>
+                              <p>{{ data.alamat }}</p>
+                              <p>NPWP: {{ data.npwp }}</p>
+                              <p>Harga Penawaran: Rp. {{ data.harga_penawaran|floatformat:0|intcomma }},-</p>
+                              <p>Harga Penawaran Terkoreksi: Rp. {{ data.harga_terkoreksi|floatformat:0|intcomma }},-</p>
+                              <p>Harga Hasil Negosiasi:
+                                {% if data.hasil_negosiasi %}
+                                  Rp. {{ data.hasil_negosiasi|floatformat:0|intcomma }},-
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                            {% endfor %}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                          </td>
+                        </tr>
+                      </table>
+                       
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+
+</div>
+
+<!-- end of Content Section -->
+{% endblock %}

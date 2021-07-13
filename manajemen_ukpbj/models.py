@@ -80,7 +80,7 @@ class PaketPekerjaan(models.Model):
 	nama_paket = models.CharField(max_length=250)
 	nomor_surat_tugas = models.CharField(max_length=100)
 	tanggal_surat_tugas = models.DateField(blank=False, null=False)
-	file_surat_tugas = models.FileField(upload_to='surat_tugas_pokja')
+	file_surat_tugas = models.FileField(upload_to='surat_tugas_pokja', blank=False, null=False)
 	nilai_pagu = models.FloatField(blank=True, null=True)
 	nilai_hps = models.FloatField(blank=True, null=True)
 	nilai_hasil_tender = models.FloatField(blank=True, null=True)

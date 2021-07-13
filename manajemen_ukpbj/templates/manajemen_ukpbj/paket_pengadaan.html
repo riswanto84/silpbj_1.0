@@ -13,12 +13,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Paket Tender</h1>
+            <h1 class="m-0">Paket Pengadaan</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
-              <li class="breadcrumb-item active">Buat Paket Tender</li>
+              <li class="breadcrumb-item active">Paket Pengadaan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,7 +30,7 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-            <a href="{% url 'TambahKontrak' %}" class="btn btn-primary btn-sm" >+Buat Paket</a>
+            <a href="{% url 'buat_paket_pengadaan' %}" class="btn btn-primary btn-sm" >Buat Paket</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -63,14 +63,14 @@
             <tr>
               <th class="text-center">No</th>
               <th class="text-center">Nama Paket</th>
+              <th class="text-center">Status Paket</th>
               <th class="text-center">Nilai Pagu (Rp)</th>
               <th class="text-center">Nilai HPS (Rp)</th>
               <th class="text-center">Nilai Hasil Tender (Rp)</th>
               <th class="text-center">Satker Pengguna</th>
               <th class="text-center">Pokja Pemilihan</th>
-               <th class="text-center">Tanggal Penugasan</th>
+              <th class="text-center">Tanggal Penugasan</th>
               <th class="text-center">Surat Tugas</th>
-              <th class="text-center">Status Paket</th>
               <th class="text-center">Aksi</th>
             </thead>
             <tbody>
@@ -78,6 +78,7 @@
             <tr>
               <td class="text-right">{{forloop.counter}}</td>
               <td>{{data.nama_paket}}</td>
+              <td>{{data.status_paket}}</td>
               <td class="text-right">{{data.nilai_pagu|floatformat:0|intcomma}}</td>
               <td class="text-right">{{data.nilai_hps|floatformat:0|intcomma}}</td>
               <td class="text-right">{{data.nilai_hasil_tender|floatformat:0|intcomma}}</td>
@@ -88,11 +89,14 @@
                 {% endfor %}
               </td>
               <td>{{data.tanggal_surat_tugas|date:'d-M-Y'}}</td>
-              <td><a class="fa fa-download" target="_blank" href="{{ data.file_surat_tugas.url }}"> unduh</a></td>
-              <td>{{data.status_paket}}</td>
+              <td>
+                {% if data.file_surat_tugas %}
+                <a class="fa fa-download" target="_blank" href="{{ data.file_surat_tugas.url }}"> unduh</a>
+                {% endif %}
+              </td>
               <td class="text-center">
-                <a class="ion ion-eye text-primary" href="#"> detail&nbsp;</a>
-                <a class="ion ion-edit text-success" href="#"> ubah</a>
+                <a class="ion ion-eye text-primary" href="{% url 'detail_paket_pengadaan' data.id %}"> detail&nbsp;</a>
+                <a class="ion ion-edit text-success" href="{% url 'edit_paket_pengadaan' data.id %}"> ubah</a>
               </td>
             </tr>
             {% endfor %}
@@ -102,6 +106,47 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+
+      <!-- modal start -->
+      <div class="modal hide fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Buat Paket</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title"></h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="hidden" name="created_by" value="{{user.id}}">
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                        </form>
+                        <!-- form end -->
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
     </section>
     <!-- /.content -->

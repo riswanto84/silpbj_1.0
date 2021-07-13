@@ -29,3 +29,30 @@ class FormSKPokjamil(ModelForm):
             'tanggal_sk': _('Tanggal SK'),
             'file_sk': _('File SK'),
         }
+ 
+class FormPaketPengadaan(ModelForm):
+    class Meta:
+        model = PaketPekerjaan
+        fields = '__all__'
+        labels = {
+            'nama_paket': _('Nama Paket'),
+            'nomor_surat_tugas': _('Nomor Surat Tugas'),
+            'tanggal_surat_tugas': _('Tanggal Surat Tugas'),
+            'file_surat_tugas': _('File Surat Tugas'),
+            'nilai_pagu': _('Nilai Pagu'),
+            'nilai_hps': _('Nilai HPS'),
+            'nilai_hasil_tender': _('Nilai Hasil Tender'),
+            'tahun_anggaran': _('Tahun Anggaran'), 
+            'dokumen_hps': _('File Dokumen HPS'),
+            'dokumen_kak_spek': _('File Dokumen KAK/Spek Teknis'),
+            'nomor_surat_usulan_tender': _('Nomor Surat Usulan Tender'),
+            'satker_pengguna': _('Satuan Kerja Pengguna/Pemilik Pekerjaan'),
+            'tanggal_usulan': _('Tanggal Usulan Tender'),
+            'dokumen_surat_usulan': _('File Surat Usulan Tender'),
+            'kode_rup': _('Kode RUP'),
+            'kode_tender': _('Kode Tender'),
+            'pokja_pemilihan': _('Pokja Pemilihan'),
+            'status_paket': _('Status Paket'),
+            'arsip_dokumen_pengadaan': _('File Arsip Dokumen Pengadaan'),
+            
+        }
