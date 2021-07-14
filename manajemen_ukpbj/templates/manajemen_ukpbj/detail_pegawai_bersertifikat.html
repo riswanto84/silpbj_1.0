@@ -81,9 +81,13 @@
                           <td>SK Pokja</td>
                           <td>:</td>
                           <td>
+                            {% if data_pegawai.sk_pokja %}
                             <a class="fa fa-download" href="{{ data_pegawai.sk_pokja.file_sk.url }}" target="_blank">
                                 {{ data_pegawai.sk_pokja.nomor_sk }}, tanggal {{ data_pegawai.sk_pokja.tanggal_sk|date:'d-M-Y' }}
                             </a>
+                            {% else %}
+                              -
+                            {% endif %}
                           </td>
                         </tr>
                       	<tr>

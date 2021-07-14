@@ -104,7 +104,7 @@
                       <!-- /.card-header -->
                       <!-- form start -->
                       <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{form|crispy}}
                             <input type="hidden" name="created_by" value="{{user.id}}">
