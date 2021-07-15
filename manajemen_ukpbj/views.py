@@ -12,7 +12,7 @@ from .forms import *
 from pyproc import Lpse
 
 
-@login_required
+@login_required(login_url='login_page')
 def pegawai_bersertifikat(request):
 	tahun = datetime.now().year
 	data_objects = PegawaiBersertifikat.objects.all().order_by('nama')
@@ -31,7 +31,7 @@ def pegawai_bersertifikat(request):
 	}
 	return render(request, 'manajemen_ukpbj/pegawai_bersertifikat.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def detail_pegawai_bersertifikat(request, pk):
 	tahun = datetime.now().year
 	# mendapatkan data pegawai dengan id yang sesuai 
@@ -85,7 +85,7 @@ def edit_pegawai_bersertifikat(request, pk):
 	}
 	return render(request, 'manajemen_ukpbj/edit_pegawai_bersertifikat.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def sk_pokja(request):
 	tahun = datetime.now().year
 	data_objects = SkPokjaPemilihan.objects.all().order_by('-tanggal_sk')
@@ -99,7 +99,7 @@ def sk_pokja(request):
 	}
 	return render(request, 'manajemen_ukpbj/sk_pokja.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def paket_pengadaan(request, tahun):
 	if request.method == 'POST':
 		tahun = request.POST.get('tahun_anggaran')
@@ -141,7 +141,7 @@ def paket_pengadaan(request, tahun):
 	}
 	return render(request, 'manajemen_ukpbj/paket_pengadaan.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def buat_paket_pengadaan(request):
 	tahun = datetime.now().year
 	form = FormPaketPengadaan
@@ -157,7 +157,7 @@ def buat_paket_pengadaan(request):
 	}
 	return render(request, 'manajemen_ukpbj/buat_paket_pengadaan.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def edit_paket_pengadaan(request, pk):
 	tahun = datetime.now().year
 	data_objects = PaketPekerjaan.objects.get(id=pk)
@@ -175,7 +175,7 @@ def edit_paket_pengadaan(request, pk):
 	}
 	return render(request, 'manajemen_ukpbj/edit_paket_pengadaan.html', context)
 
-@login_required
+@login_required(login_url='login_page')
 def detail_paket_pengadaan(request, pk):
 	tahun = datetime.now().year
 	data_objects = PaketPekerjaan.objects.get(id=pk)

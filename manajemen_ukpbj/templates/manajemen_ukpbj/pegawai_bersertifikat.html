@@ -51,7 +51,7 @@
               <th class="text-center">Status Kepegawaian</th>
               <th class="text-center">Email</th>
               <th class="text-center">File Sertifikat</th>
-              <th class="text-center">Detail</th>
+              <th class="text-center">Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -70,8 +70,8 @@
                     {% endif %}
                   </td>
                   <td class="text-center">
-                    <a class="ion ion-eye text-primary identifyingClass" href="{% url 'detail_pegawai_bersertifikat' data.id %}"> &nbsp;</a>
-                    <a class="ion ion-edit text-success" href="{% url 'edit_pegawai_bersertifikat' data.id %}"> &nbsp;</a>
+                    <a class="ion ion-eye text-primary identifyingClass" href="{% url 'detail_pegawai_bersertifikat' data.id %}"> detail&nbsp;</a>
+                    <a class="ion ion-edit text-success" href="{% url 'edit_pegawai_bersertifikat' data.id %}"> ubah&nbsp;</a>
                   </td>
                 </tr>
               {% endfor %}

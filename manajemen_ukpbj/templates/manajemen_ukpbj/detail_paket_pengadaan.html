@@ -52,6 +52,8 @@
                           <td>
                             {% if data_objects.nilai_pagu %}
                               {{ data_objects.nilai_pagu|floatformat:0|intcomma }}
+                            {% else %}
+                              N/A
                             {% endif %}
                           </td>
                         </tr>
@@ -98,7 +100,7 @@
                       		<td>:</td>
                       		<td>
                             {% if data_objects.dokumen_hps %}
-                              {{ data_objects.dokumen_hps }}
+                              <a class="fa fa-download" target="_blank" href="{{ data_objects.dokumen_hps.url }}"> unduh</a> 
                             {% else %}
                                 N/A
                             {% endif %}
@@ -123,12 +125,18 @@
                       	<tr>
                       		<td>Nomor Surat Usulan Tender</td>
                       		<td>:</td>
-                      		<td>{{ data_objects.nomor_surat_usulan_tender }}</td>
+                      		<td>
+                          {% if data_objects.nomor_surat_usulan_tender %}
+                            {{ data_objects.nomor_surat_usulan_tender }}
+                          {% else %}
+                            N/A
+                          {% endif %}
+                          </td>
                       	</tr>
                         <tr>
                           <td>Tanggal Usulan Tender</td>
                           <td>:</td>
-                          <td>{{ data_objects.tanggal_usulan }}</td>
+                          <td>{{ data_objects.tanggal_usulan|date:'d-M-Y' }}</td>
                         </tr>
                         <tr>
                           <td>File Dokumen Surat Usulan Tender</td>
@@ -136,6 +144,8 @@
                           <td>
                             {% if data_objects.dokumen_surat_usulan %}
                               <a class="fa fa-download" target="_blank" href="{{ data_objects.dokumen_surat_usulan.url }}"> unduh</a>
+                            {% else %}
+                              N/A
                             {% endif %}
                           </td>
                         </tr>
@@ -145,6 +155,8 @@
                           <td>
                             {% if data_objects.kode_rup %}
                               {{ data_objects.kode_rup }}
+                            {% else %}
+                              N/A
                             {% endif %}
                           </td>
                         </tr>
@@ -200,7 +212,7 @@
                           <td>:</td>
                           <td>
                             {% if link_tender %}
-                              <a target="_blank" href="{{ link_tender }}">{{ link_tender }}</a>
+                              <a class="fa fa-link" target="_blank" href="{{ link_tender }}"> {{ link_tender }}</a>
                             {% else %}
                                 N/A
                             {% endif %}
