@@ -176,7 +176,7 @@
                           <td>:</td>
                           <td>
                             {% for pokja in data_objects.pokja_pemilihan.all %}
-                              <a href="{% url 'detail_pegawai_bersertifikat' pokja.id %}">{{forloop.counter}}. {{ pokja }} </a><br>
+                              <a href="{% url 'detail_pegawai_bersertifikat' pokja.id %}" target="_blank">{{forloop.counter}}. {{ pokja }} </a><br>
                             {% endfor %}
                           </td>
                         </tr>
