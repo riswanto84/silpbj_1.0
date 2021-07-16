@@ -103,7 +103,7 @@ def sk_pokja(request):
 def paket_pengadaan(request, tahun):
 	if request.method == 'POST':
 		tahun = request.POST.get('tahun_anggaran')
-		data_objects = PaketPekerjaan.objects.filter(tahun_anggaran=tahun)
+		data_objects = PaketPekerjaan.objects.filter(tahun_anggaran=tahun).order_by('-tanggal_surat_tugas')
 		messages.info(request, 'Menampilkan data Tender tahun ' + tahun)
 
 		year_range = []
@@ -131,7 +131,7 @@ def paket_pengadaan(request, tahun):
 		year_range.append(tahun_start)
 		tahun_start = tahun_start + 1
 	
-	data_objects = PaketPekerjaan.objects.filter(tahun_anggaran=tahun)
+	data_objects = PaketPekerjaan.objects.filter(tahun_anggaran=tahun).order_by('-tanggal_surat_tugas')
 
 	context = {
 		'tahun': tahun,
