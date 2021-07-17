@@ -27,6 +27,7 @@ urlpatterns = [
     #path('manajemen_kontrak/', include('manajemen_kontrak.urls')),
     path('', include('manajemen_kontrak.urls')),
     path('manajemen_ukpbj/', include('manajemen_ukpbj.urls')),
+    path('knowledge_base/', include('knowledge_base.urls', namespace='knowledge_base')),
 ]
 
 # SETTING URL PATTERN
