@@ -11,6 +11,7 @@ urlpatterns = [
 	path('buat_paket_pengadaan/', views.buat_paket_pengadaan, name='buat_paket_pengadaan'),
 	path('edit_paket_pengadaan/<str:pk>', views.edit_paket_pengadaan, name='edit_paket_pengadaan'),
 	path('detail_paket_pengadaan/<str:pk>', views.detail_paket_pengadaan, name='detail_paket_pengadaan'),
+	path('paket_pengadaan_by_status/', views.paket_pengadaan_by_status, name='paket_pengadaan_by_status'),
 ]
 
 

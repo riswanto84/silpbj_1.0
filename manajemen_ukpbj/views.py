@@ -106,6 +106,13 @@ def paket_pengadaan(request, tahun):
 		data_objects = PaketPekerjaan.objects.filter(tahun_anggaran=tahun).order_by('-tanggal_surat_tugas')
 		messages.info(request, 'Menampilkan data Tender tahun ' + tahun)
 
+		# mendapatkan total jumlah status paket pengadaan
+		tot_persiapan_pengadaan = PaketPekerjaan.objects.filter(status_paket='Persiapan Pengadaan').filter(tahun_anggaran=tahun).count()
+		tot_proses_tender = PaketPekerjaan.objects.filter(status_paket='Proses Tender').filter(tahun_anggaran=tahun).count()
+		tot_selesai_tender = PaketPekerjaan.objects.filter(status_paket='Selesai Tender').filter(tahun_anggaran=tahun).count()
+		tot_gagal_tender = PaketPekerjaan.objects.filter(status_paket='Gagal Tender').filter(tahun_anggaran=tahun).count()
+		total_paket = tot_persiapan_pengadaan + tot_proses_tender + tot_selesai_tender + tot_gagal_tender
+
 		year_range = []
 		tahun_start = 2020
 		tahun_end = int(tahun)+1
@@ -118,10 +125,22 @@ def paket_pengadaan(request, tahun):
 			'tahun_start': tahun_start,
 			'year_range': year_range,
 			'data_objects': data_objects,
+			'tot_persiapan_pengadaan': tot_persiapan_pengadaan,
+			'tot_proses_tender': tot_proses_tender,
+			'tot_selesai_tender': tot_selesai_tender,
+			'tot_gagal_tender': tot_gagal_tender,
+			'total_paket': total_paket,
 		}
 		return render(request, 'manajemen_ukpbj/paket_pengadaan.html', context)
 
 	tahun = datetime.now().year
+	
+	# mendapatkan total jumlah status paket pengadaan
+	tot_persiapan_pengadaan = PaketPekerjaan.objects.filter(status_paket='Persiapan Pengadaan').filter(tahun_anggaran=tahun).count()
+	tot_proses_tender = PaketPekerjaan.objects.filter(status_paket='Proses Tender').filter(tahun_anggaran=tahun).count()
+	tot_selesai_tender = PaketPekerjaan.objects.filter(status_paket='Selesai Tender').filter(tahun_anggaran=tahun).count()
+	tot_gagal_tender = PaketPekerjaan.objects.filter(status_paket='Gagal Tender').filter(tahun_anggaran=tahun).count()
+	total_paket = tot_persiapan_pengadaan + tot_proses_tender + tot_selesai_tender + tot_gagal_tender
 	
 	year_range = []
 	tahun_start = 2020
@@ -138,8 +157,17 @@ def paket_pengadaan(request, tahun):
 		'tahun_start': tahun_start,
 		'year_range': year_range,
 		'data_objects': data_objects,
+		'tot_persiapan_pengadaan': tot_persiapan_pengadaan,
+		'tot_proses_tender': tot_proses_tender,
+		'tot_selesai_tender': tot_selesai_tender,
+		'tot_gagal_tender': tot_gagal_tender,
+		'total_paket': total_paket,
 	}
 	return render(request, 'manajemen_ukpbj/paket_pengadaan.html', context)
+
+@login_required(login_url='login_page')
+def paket_pengadaan_by_status(request):
+	return HttpResponse('paket_pengadaan by status')
 
 @login_required(login_url='login_page')
 def buat_paket_pengadaan(request):
