@@ -1,1 +1,79 @@
-<p>ini detail</p>
+{% extends 'manajemen_kontrak/main_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load blog_tags %}
+
+{% block content %} 
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ post.title }}</h1>
+            <span class="description text-secondary">Ditayangkan pada tanggal {{ post.publish|date:'d-m-Y' }}</span>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-9">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                {% if post.gambar %}
+                  <div class="col-12">
+                    <img src="{{ post.gambar.url }}" class="product-image" alt="Product Image">
+                  </div>
+                {% endif %}
+                <br>
+              	{{ post.body|linebreaks }}
+
+                {% if post.file %}
+                  <a class="link-black text-sm" href="{{ post.file.url }}"><i class="fas fa-link mr-1"></i> {{ post.file|cut:'file_knowledge_base/' }}</a>
+                {% endif %}
+                <hr>
+                <h5 class="text-muted">postingan serupa:</h5>
+                {% for post in similar_posts %}
+                <p>
+                  <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </p>
+                {% empty %}
+                  Belum ada postingan
+                {% endfor %}
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="tab-content">
+                    <h5>Postingan terakhir</h5>
+                    {% show_latest_posts 3 %}
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<!-- end of Content Section -->
+
+{% endblock %}
