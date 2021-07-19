@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import date, datetime
 from django.views.generic import ListView
 from taggit.models import Tag
 from django.db.models import Count
+from .forms import *
+from django.contrib import messages
 
 
 # Create your views here.
@@ -51,6 +53,26 @@ def post_detail(request, year, month, day, post):
                   {'post': post,
                   'tahun': datetime.now().year,
                   'similar_posts': similar_posts,})
+
+def tambah_pengetahuan(request):
+  form = FormKnowledgeBase
+  tahun = datetime.now().year
+
+  pengetahuan = Post.objects.all()
+
+  if request.method == 'POST':
+    form = FormKnowledgeBase(request.POST or None, request.FILES or None)
+    if form.is_valid():
+      form.save()
+      messages.info(request, 'Data berhasil diubah')
+      return redirect('home_dashboard')
+
+  context = {
+    'tahun': tahun,
+    'form': form,
+    'pengetahuan': pengetahuan,
+  }
+  return render(request, 'knowledge_base/post/tambah_pengetahuan.html', context)
 
 class PostListView(ListView):
     queryset = Post.published.all()

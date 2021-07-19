@@ -303,6 +303,18 @@
                     </a>
                   </li>
                 </ul>
+
+                {% if request.user.useradmin.nama == 'Riswanto' %}
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="https://simpel.lpse.kemsos.go.id/knowledge_base/tambah_pengetahuan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tambah Pengetahuan</p>
+                    </a>
+                  </li>
+                </ul>
+                {% endif %}
+
               </li>
               <!-- End of knowledge -->
 

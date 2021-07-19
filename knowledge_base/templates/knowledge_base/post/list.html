@@ -34,7 +34,7 @@
                         </span>
 	              		<span class="description">Ditayangkan pada tanggal {{ post.publish|date:'d-m-Y' }}</span>
                     <p>Tags: {{ post.tags.all|join:", " }}</p>
-	              		<p>{{ post.body|truncatewords:30|linebreaks }} <small>oleh: {{ post.author.useradmin.nama }}</small> </p>
+	              		<p>{{ post.body|truncatewords:30|safe }} <small>oleh: {{ post.author.useradmin.nama }}</small> </p>
 	              		<hr>
 	                {% endfor %}
             	</div>

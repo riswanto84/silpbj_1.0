@@ -1,0 +1,185 @@
+{% extends 'manajemen_kontrak/main_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+
+<!-- Content Section -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Tambah Pengetahuan</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal1">+ Tambah Pengetahuan</button>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          {% for message in messages %}
+            <div class="alert alert-default-success alert-dismissible fade show" role="alert">
+              <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          {% endfor %}
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th class="text-center">No</th>
+              <th class="text-center">Judul Pengetahuan</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in pengetahuan %}
+            <tr>
+              <td class="text-right">{{forloop.counter}}</td>
+              <td>{{i.title}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+      <!-- modal start -->
+      <div class="modal hide fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Tambah Pengetahuan</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title"></h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="hidden" name="created_by" value="{{user.id}}">
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                        </form>
+                        <!-- form end -->
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="modal hide fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Tambah Satuan Barang</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-success">
+                      <div class="card-header">
+                        <h3 class="card-title"></h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form_satuan|crispy}}
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                        </form>
+                        <!-- form end -->
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal hide fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalBarangLabel">Detail Barang</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-2">
+                    <p>Nama Barang</p>
+                    <p>Merk</p>
+                    <p>Tipe</p>
+                    <p>Spesifikasi</p>
+                    <p>Keterangan</p>
+                  </div>
+                  <div class="col-md-1">
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                  </div>
+                  <div class="col-md-9">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal end -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<!-- end of Content Section -->
+
+{% endblock %}

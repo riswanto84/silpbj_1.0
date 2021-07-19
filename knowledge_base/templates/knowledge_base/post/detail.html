@@ -33,7 +33,7 @@
                   </div>
                 {% endif %}
                 <br>
-              	{{ post.body|linebreaks }}
+              	{{ post.body|safe }}
 
                 {% if post.file %}
                   <a class="link-black text-sm" href="{{ post.file.url }}"><i class="fas fa-link mr-1"></i> {{ post.file|cut:'file_knowledge_base/' }}</a>
