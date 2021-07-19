@@ -38,6 +38,13 @@ def detail_pegawai_bersertifikat(request, pk):
 	pegawai = PegawaiBersertifikat.objects.get(id=pk)
 	nip = pegawai.nip
 
+	# mendapatkan data paket pengadaan pegawai
+	data_objects = PaketPekerjaan.objects.filter(pokja_pemilihan__id=pk)
+	total_paket = data_objects.count()
+	status_persiapan = data_objects.filter(status_paket='Persiapan Pengadaan').count()
+	status_proses_tender = data_objects.filter(status_paket='Proses Tender').count()
+	status_tender_gagal = data_objects.filter(status_paket='Gagal Tender').count()	
+
 	# mendapatkan api kemsos dengan nip 
 	api_kemsos = 'https://api-internal.kemensos.go.id/api/pegawai2/' + nip
 	response = requests.get(api_kemsos)
@@ -49,6 +56,11 @@ def detail_pegawai_bersertifikat(request, pk):
 			'tahun': tahun,
 			'data_pegawai': pegawai,
 			'nip': pegawai.nip,
+			'data_objects': data_objects,
+			'total_paket': total_paket,
+			'status_persiapan': status_persiapan,
+			'status_proses_tender': status_proses_tender,
+			'status_tender_gagal': status_tender_gagal,
 		}
 
 	elif status_pencarian ==200:
@@ -62,7 +74,11 @@ def detail_pegawai_bersertifikat(request, pk):
 			'unit_kerja': data_pegawai['data'][0]['UNIT_KERJA'],
 			'gelar_preffix': data_pegawai['data'][0]['GELAR_PREFIX'],
 			'gelar_suffix': data_pegawai['data'][0]['GELAR_SUFFIX'],
-
+			'data_objects': data_objects,
+			'total_paket': total_paket,
+			'status_persiapan': status_persiapan,
+			'status_proses_tender': status_proses_tender,
+			'status_tender_gagal': status_tender_gagal,
 		}
 	
 	return render(request, 'manajemen_ukpbj/detail_pegawai_bersertifikat.html', context)

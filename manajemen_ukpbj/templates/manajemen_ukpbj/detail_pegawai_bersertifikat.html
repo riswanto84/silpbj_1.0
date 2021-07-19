@@ -1,38 +1,20 @@
 {% extends 'manajemen_kontrak/main_template.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 {% block content %} 
 
 <style>
-	.profile-pic{
-		max-width: 200px;
-		max-height:200px;
-		margin: 0 auto;
-		border-radius: 50%;
-	}
+  .profile-pic{
+    max-width: 200px;
+    max-height:200px;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
 </style>
 
 <!-- Content Section -->
 <div class="content-wrapper">
-
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                <h4>Biodata Pegawai Bersertifikat Ahli Pengadaan</h4>
-                </div>
-                <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{% url 'home_dashboard' %}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'pegawai_bersertifikat' %}">Data Sertifikasi Pengadaan</a></li>
-                    <li class="breadcrumb-item active">Biodata</li>
-                </ol>
-                </div>
-            </div>
-            </div><!-- /.container-fluid -->
-        </section>
-
         <section class="content">
             <div class="container-fluid">
             <br>
@@ -55,13 +37,29 @@
                           <img class="profile-pic" src="https://simpel.lpse.kemsos.go.id/media/profilepics/avatar.jpeg" >
                         {% endif %}
                         <h3 class="profile-username text-center">
-                        	{% if gelar_preffix %}
-                        		{{ gelar_preffix }}
-                        	{% endif %}
-                        	{{data_pegawai.nama}}{% if gelar_suffix %}, {{gelar_suffix}}{% endif %}
-                    	</h3>
-                    	<p class="text-muted text-center">{{ nip }}</p>
-                        <p class="text-muted text-center">{{ jabatan }}</p>
+                          {% if gelar_preffix %}
+                            {{ gelar_preffix }}
+                          {% endif %}
+                          {{data_pegawai.nama}}{% if gelar_suffix %}, {{gelar_suffix}}{% endif %}
+                      </h3>
+                      <p class="text-muted text-center">{{ nip }}</p>
+                      <p class="text-muted text-center">{{ jabatan }}</p>
+                      <hr>
+                      <strong>Pengadaan Tahun {{tahun}} </strong>
+                        <ul class="list-unstyled">
+                          <li>
+                            <a href="#" class="btn-link text-secondary">Total Paket: <strong>{{total_paket}}</strong></a>
+                          </li>
+                          <li>
+                            <a href="#" class="btn-link text-secondary">Persiapan Pengadaan: <strong>{{status_persiapan}}</strong></a>
+                          </li>
+                          <li>
+                            <a href="#" class="btn-link text-secondary">Proses Tender: <strong>{{status_proses_tender}}</strong></a>
+                          </li>
+                          <li>
+                            <a href="#" class="btn-link text-secondary">Gagal Tender: <strong>{{status_tender_gagal}}</strong></a>
+                          </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -90,63 +88,110 @@
                             {% endif %}
                           </td>
                         </tr>
-                      	<tr>
-                      		<td>Unit Kerja</td>
-                      		<td>:</td>
-                      		<td>{{ unit_kerja }}</td>
-                      	</tr>
-                      	<tr>
-                      		<td>Alamat Email</td>
-                      		<td>:</td>
-                      		<td>{{ data_pegawai.email }}</td>
-                      	</tr>
-                      	<tr>
-                      		<td>Nomor HP</td>
-                      		<td>:</td>
-                      		<td>{{ data_pegawai.nomor_hp }}</td>
-                      	</tr>
-                      	<tr>
-                      		<td>Nomor Sertifikat / Tanggal</td>
-                      		<td>:</td>
-                      		<td>
-                      		 {% if data_pegawai.nomor_sertifikat %}
-                      			{{ data_pegawai.nomor_sertifikat }}, {{ data_pegawai.tanggal_sertifikat|date:'d-m-Y' }}
-                      		 {% else %}
-                      		 	<p>-</p>
-                      		 {% endif %}
+                        <tr>
+                          <td>Unit Kerja</td>
+                          <td>:</td>
+                          <td>{{ unit_kerja }}</td>
+                        </tr>
+                        <tr>
+                          <td>Alamat Email</td>
+                          <td>:</td>
+                          <td>{{ data_pegawai.email }}</td>
+                        </tr>
+                        <tr>
+                          <td>Nomor HP</td>
+                          <td>:</td>
+                          <td>{{ data_pegawai.nomor_hp }}</td>
+                        </tr>
+                        <tr>
+                          <td>Nomor Sertifikat / Tanggal</td>
+                          <td>:</td>
+                          <td>
+                           {% if data_pegawai.nomor_sertifikat %}
+                            {{ data_pegawai.nomor_sertifikat }}, {{ data_pegawai.tanggal_sertifikat|date:'d-m-Y' }}
+                           {% else %}
+                            <p>-</p>
+                           {% endif %}
 
-                      		</td>
-                      	</tr>
-                      	<tr>
-                      		<td>Jenis Sertifikat</td>
-                      		<td>:</td>
-                      		<td>{{ data_pegawai.jenis_sertifikat }}</td>
-                      	</tr>
-                      	<tr>
-                      		<td>File Sertifikat</td>
-                      		<td>:</td>
-                      		<td>
-		                    {% if data_pegawai.file_sertifikat %}
-		                      <a href="{{ data_pegawai.file_sertifikat.url }}" target="_blank"><i class="fa fa-download" aria-hidden="true"> Unduh</i></a>
-		                    {% elif var != data_pegawai.file_sertifikat %}
-		                        <p>-</p>
-		                    {% endif %}
-                      		</td>
-                      	</tr>
-                      	<tr>
-                      		<td>NPWP</td>
-                      		<td>:</td>
-                      		<td>{{ npwp }}</td>
-                      	</tr>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Jenis Sertifikat</td>
+                          <td>:</td>
+                          <td>{{ data_pegawai.jenis_sertifikat }}</td>
+                        </tr>
+                        <tr>
+                          <td>File Sertifikat</td>
+                          <td>:</td>
+                          <td>
+                        {% if data_pegawai.file_sertifikat %}
+                          <a href="{{ data_pegawai.file_sertifikat.url }}" target="_blank"><i class="fa fa-download" aria-hidden="true"> Unduh</i></a>
+                        {% elif var != data_pegawai.file_sertifikat %}
+                            <p>-</p>
+                        {% endif %}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>NPWP</td>
+                          <td>:</td>
+                          <td>{{ npwp }}</td>
+                        </tr>
                       </table>
                        
                     </div>
                 </div>
+                <div class="col-md-12">
+                  <h5 class="text-muted">Paket pengadaan ditangani {{data_pegawai.nama}} tahun {{tahun}}: </h5>
+                  <hr>
+                  <table id="example1" class="table table-bordered table-striped ">
+                    <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Nama Paket</th>
+                      <th class="text-center">Status Paket</th>
+                      <th class="text-center">Nilai Pagu (Rp)</th>
+                      <th class="text-center">Nilai HPS (Rp)</th>
+                      <th class="text-center">Nilai Hasil Tender (Rp)</th>
+                      <th class="text-center">Satker Pengguna</th>
+                      <th class="text-center">Pokja Pemilihan</th>
+                      <th class="text-center">Tanggal Penugasan</th>
+                      <th class="text-center">Surat Tugas</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for data in data_objects %}
+                    <tr>
+                      <td class="text-right">{{forloop.counter}}</td>
+                      <td>
+                        <u>
+                        <a href="{% url 'detail_paket_pengadaan' data.id %}" class="text-dark">{{data.nama_paket}}</a>
+                        </u>
+                      </td>
+                      <td>{{data.status_paket}}</td>
+                      <td class="text-right">{{data.nilai_pagu|floatformat:0|intcomma}}</td>
+                      <td class="text-right">{{data.nilai_hps|floatformat:0|intcomma}}</td>
+                      <td class="text-right">{{data.nilai_hasil_tender|floatformat:0|intcomma}}</td>
+                      <td>{{data.satker_pengguna}}</td>
+                      <td>
+                        {% for pokja in data.pokja_pemilihan.all %}
+                          <a href="{% url 'detail_pegawai_bersertifikat' pokja.id %}">{{forloop.counter}}. {{ pokja }} </a><br>
+                        {% endfor %}
+                      </td>
+                      <td>{{data.tanggal_surat_tugas|date:'d-M-Y'}}</td>
+                      <td>
+                        {% if data.file_surat_tugas %}
+                        <a class="fa fa-download" target="_blank" href="{{ data.file_surat_tugas.url }}"> unduh</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
             </div>
             </div>
         </section>
-
-
 </div>
 
 <!-- end of Content Section -->
