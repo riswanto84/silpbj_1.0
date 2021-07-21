@@ -15,7 +15,7 @@
             <h1>{{ post.title }}</h1>
             <span class="description text-secondary">Ditayangkan pada tanggal {{ post.publish|date:'d-m-Y' }}</span>
           </div>
-	  <div class="col-sm-6">
+	       <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="https://simpel.lpse.kemsos.go.id/knowledge_base">Knowledge Base</a></li>
               <li class="breadcrumb-item active">{{ post.title }}</li>
@@ -41,11 +41,17 @@
                 <br>
               	{{ post.body|safe }}
 
+                {% if post.tautan_youtube %}
+                <div class="=content-video embed-responsive embed-responsive-16by9 col-xs-12 text-center">
+                  {{ post.tautan_youtube|safe }}
+                </div>
+                {% endif %}
+
                 {% if post.file %}
                   <a class="link-black text-sm" href="{{ post.file.url }}"><i class="fas fa-link mr-1"></i> {{ post.file|cut:'file_knowledge_base/' }}</a>
                 {% endif %}
                 <hr>
-                <h5 class="text-muted">postingan serupa:</h5>
+                <h5 class="text-muted">Postingan Serupa:</h5>
                 {% for post in similar_posts %}
                 <p>
                   <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
