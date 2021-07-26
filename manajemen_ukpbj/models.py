@@ -63,6 +63,7 @@ class PaketPekerjaan(models.Model):
 		('Proses Tender', 'proses tender'),
 		('Selesai Tender', 'selesai tender'),
 		('Gagal Tender', 'gagal tender'),
+		('Fullboard Meeting', 'fullboard meeting'),
 	)
 
 	TAHUN_ANGGARAN = (

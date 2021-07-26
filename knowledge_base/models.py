@@ -32,7 +32,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
-    tautan_youtube = models.TextField(blank=False, null=False)
+    tautan_youtube = models.TextField(blank=True, null=True)
 
     objects = models.Manager() # The default manager
     published = PublishedManager() # Our custom manager
