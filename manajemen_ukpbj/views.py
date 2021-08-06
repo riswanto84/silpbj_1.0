@@ -43,7 +43,9 @@ def detail_pegawai_bersertifikat(request, pk):
 	total_paket = data_objects.count()
 	status_persiapan = data_objects.filter(status_paket='Persiapan Pengadaan').count()
 	status_proses_tender = data_objects.filter(status_paket='Proses Tender').count()
-	status_tender_gagal = data_objects.filter(status_paket='Gagal Tender').count()	
+	status_tender_gagal = data_objects.filter(status_paket='Gagal Tender').count()
+	status_tender_selesai = data_objects.filter(status_paket='Selesai Tender').count()
+	status_fullboard_meeting = data_objects.filter(status_paket='Fullboard Meeting').count()
 
 	# mendapatkan api kemsos dengan nip 
 	api_kemsos = 'https://api-internal.kemensos.go.id/api/pegawai2/' + nip
@@ -61,6 +63,8 @@ def detail_pegawai_bersertifikat(request, pk):
 			'status_persiapan': status_persiapan,
 			'status_proses_tender': status_proses_tender,
 			'status_tender_gagal': status_tender_gagal,
+			'status_tender_selesai': status_tender_selesai,
+			'status_fullboard_meeting': status_fullboard_meeting,
 		}
 
 	elif status_pencarian ==200:
@@ -79,6 +83,8 @@ def detail_pegawai_bersertifikat(request, pk):
 			'status_persiapan': status_persiapan,
 			'status_proses_tender': status_proses_tender,
 			'status_tender_gagal': status_tender_gagal,
+			'status_tender_selesai': status_tender_selesai,
+			'status_fullboard_meeting': status_fullboard_meeting,
 		}
 	
 	return render(request, 'manajemen_ukpbj/detail_pegawai_bersertifikat.html', context)

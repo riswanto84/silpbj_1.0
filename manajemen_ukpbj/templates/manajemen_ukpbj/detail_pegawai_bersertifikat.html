@@ -45,25 +45,43 @@
                       <p class="text-muted text-center">{{ nip }}</p>
                       <p class="text-muted text-center">{{ jabatan }}</p>
                       <hr>
-                      <strong>Pengadaan Tahun {{tahun}} </strong>
-                        <ul class="list-unstyled">
-                          <li>
-                            <a href="#" class="btn-link text-secondary">Total Paket: <strong>{{total_paket}}</strong></a>
+                      <strong>Tahun {{tahun}} </strong>
+                        <ul class="nav flex-column">
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Total Paket Tender <span class="float-right badge bg-primary">{{total_paket}}</span>
+                            </a>
                           </li>
-                          <li>
-                            <a href="#" class="btn-link text-secondary">Persiapan Pengadaan: <strong>{{status_persiapan}}</strong></a>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Persiapan Tender <span class="float-right badge bg-warning">{{status_persiapan}}</span>
+                            </a>
                           </li>
-                          <li>
-                            <a href="#" class="btn-link text-secondary">Proses Tender: <strong>{{status_proses_tender}}</strong></a>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Proses Tender <span class="float-right badge bg-info">{{status_proses_tender}}</span>
+                            </a>
                           </li>
-                          <li>
-                            <a href="#" class="btn-link text-secondary">Gagal Tender: <strong>{{status_tender_gagal}}</strong></a>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Tender Gagal <span class="float-right badge bg-danger">{{status_tender_gagal}}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Fullboard Meeting <span class="float-right badge bg-success">{{status_fullboard_meeting}}</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link">
+                              Tender Selesai <span class="float-right badge bg-success">{{status_tender_selesai}}</span>
+                            </a>
                           </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card card-body table-responsive p-0">
+                    <div class="card card-body">
                       <table class="table table-bordered table-striped">
                         <tr>
                           <td>Status Kepegawaian</td>
