@@ -57,7 +57,7 @@
                   <td>{{ forloop.counter }}</td>
                   <td>{{ data.nomor_sk }}, {{ data.tanggal_sk|date:'d-M-Y' }}</td>
                   <td>{{ data.judul_sk }}</td>
-                  <td class="text-center"><a class="fa fa-download" href="{{ data.data.file_sk.url }}"></a> unduh</td>
+                  <td class="text-center"><a class="fa fa-download" href="{{ data.file_sk.url }}" target="blank"> Unduh</a></td>
                   <td>{{ data.keterangan }}</td>
                 </tr>
               {% endfor %}
